@@ -17,6 +17,7 @@ app.get('/', (req, res) => {
     title: `Casey Book!`,
     heading: `Welcome to Casey Book!`,
     subheading: `It's like Facebook, only made by some guy named 'Casey'.`,
+    showLogin: true,
   });
 });
 

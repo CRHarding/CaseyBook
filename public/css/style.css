@@ -1,0 +1,21 @@
+body, html {
+  background-color: grey;
+}
+
+h1 {
+  background-color: skyblue;
+  border-radius: 15px;
+  text-align: center;
+  color: grey;
+}
+
+h2 {
+  background-color: skyblue;
+  border-radius: 15px;
+  text-align: center;
+  color: grey;
+}
+
+footer {
+  text-align: right;
+}

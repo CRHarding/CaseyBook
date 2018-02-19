@@ -1,5 +1,10 @@
 <% include ./partials/boilerplate %>
   <h1><%= heading %></h1>
   <h2><%= subheading %></h2>
-
+  <%if (showLogin) {%>
+    <p id='namePara'>Name: <input type='text' id='userName'></p>
+    <p id='passPara'>Password: <input type='password' id='userPass'></p>
+    <button id='enter'>Enter</button>
+  <%}%>
+  <p>New user? Click here!</p><button id='newUser'>I'm new!</button>
 <% include ./partials/footer %>
