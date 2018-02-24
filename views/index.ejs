@@ -1,10 +1,17 @@
 <% include ./partials/boilerplate %>
+<div class = 'navbar'>
+  <a href='#home'>Home</a>
+  <a href='#news'>News</a>
+  <a href='#contact'>Contact</a>
+</div>
   <h1><%= heading %></h1>
   <h2><%= subheading %></h2>
   <%if (showLogin) {%>
-    <p id='namePara'>Name: <input type='text' id='userName'></p>
-    <p id='passPara'>Password: <input type='password' id='userPass'></p>
-    <button id='enter'>Enter</button>
+    <form action='/profile/authenticate' method = 'post'>
+      <input name='uname' type='text' placeholder = 'Name'/>
+      <input name='upass' type='password' placeholder = 'Password'/>
+      <input type='submit' value='Enter'/>
+    </form>
   <%}%>
   <p>New user? Click here!</p><button id='newUser'>I'm new!</button>
 <% include ./partials/footer %>
