@@ -16,7 +16,7 @@ module.exports = {
     });
   },
 
-  createMessage((req, res, next) => {
+  createMessage(req, res, next) {
     const err = req.session.error;
     const msg = req.session.success;
     delete req.session.error;
@@ -25,34 +25,5 @@ module.exports = {
     if (err) res.locals.message = `<p class ="msg error">${err}</p>`;
     if (msg) res.locals.message = `<p class="msg success">${msg}</p>`;
     next();
-  }),
-
-  authRouter.use(session({
-    resave: false,
-    saveUninitialized: false,
-    secret: 'tilt huff blown back',
-  }));
-
-  authRouter.post('/login',
-
-  (req, res) => {
-
-    authenticate(username, password, (err, user) => {
-      console.log('authenticate');
-      console.log(err);
-      console.log(user);
-      if (err) {
-        req.session.error = 'Authentication failed. Please try again';
-        res.redirect('/login');
-      } else {
-        req.session.regenerate(() => {
-          req.session.user = user;
-          req.session.success = 'Welcome!';
-          res.redirect('back');
-        });
-      }
-    });
-  }),
-
-
+  },
 };
