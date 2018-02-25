@@ -1,7 +1,7 @@
 module.exports = {
   showUser(req, res) {
     res.render('profiles/index', {
-      user: res.locals.user,
+      user: req.session.user,
     });
   },
 

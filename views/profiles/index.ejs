@@ -1,8 +1,5 @@
 <% include ../partials/boilerplate %>
 
-<h2>Quotes Index</h2>
-<ul><% quotes.forEach(quote => { %>
-  <li><a href = "/quotes/<%= quote.id %>"><%= quote.content %></a></li>
-  <% }) %>
-</ul>
+<h1>USER PAGE FOR <%=user.username%></h1>
+
 <% include ../partials/footer %>
