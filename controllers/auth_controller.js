@@ -2,28 +2,51 @@ const users = require('../models/profileDB');
 const hasher = require('pbkdf2-password')();
 
 module.exports = {
-  authenticate(req, res, next) {
-    const { username, password } = req.body;
-    console.log('Authenticating %s: %s', username, password);
-    const user = users.findByUsername(username);
-    if (!user) return fn(new Error('cannot find user'));
-    hasher({ password: inputPassword, salt: user.salt }, (err, pass, salt, hash) => {
-      console.log(hash);
-      console.log(user.hash);
-      if (hash !== user.hash) return fn(new Error('Incorrect password'));
-      if (err) return fn(err);
-      return fn(null, user);
+  checkUser(req, res, next) {
+    if (users.findByUsername(req.params.user)) {
+      req.session.error = 'That username already exists!';
+      res.redirect('/authenticate/register');
+    } else {
+      next();
+    }
+  },
+
+  save(req, res, next) {
+    users.save(req.user);
+    req.session.user = user;
+    next();
+  },
+
+  logout(req, res) {
+    req.session.destroy(() => {
+      res.redirect('/');
     });
   },
 
-  createMessage(req, res, next) {
-    const err = req.session.error;
-    const msg = req.session.success;
-    delete req.session.error;
-    delete req.session.success;
-    res.locals.message = ' ';
-    if (err) res.locals.message = `<p class ="msg error">${err}</p>`;
-    if (msg) res.locals.message = `<p class="msg success">${msg}</p>`;
-    next();
+  isLoggedIn(req, res, next) {
+    if (req.session.user) {
+      next();
+    } else {
+      req.session.error = 'Login required';
+      res.redirect('/authenticate/login');
+    }
+  },
+
+  isUser(req, res, next) {
+    if (req.session.user.id === res.locals.quote.author_id) {
+      next();
+    } else {
+      req.session.error = 'Only the user can edit it.';
+      res.redirect(`back`);
+    };
+  },
+
+  authenticate(req, res, next) {
+    console.log(req.body.username);
+    users.findByUsername(req.body.username)
+      .then((user) => {
+        console.log('user found!');
+      })
+      .catch(err => console.log('user not found!'));
   },
 };

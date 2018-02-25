@@ -1,8 +1,7 @@
 \c users_db;
 
-INSERT INTO users (username, fname, lname) VALUES
+INSERT INTO users (username, password) VALUES
   (
-    'CR Harding',
-    'Casey',
-    'Harding'
+    'case',
+    'case'
   );

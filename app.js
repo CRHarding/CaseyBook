@@ -3,8 +3,8 @@ const logger = require('morgan');
 const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
 const path = require('path');
-const PORT = process.env.PORT || 3000;
 const session = require('express-session');
+const PORT = process.env.PORT || 3000;
 
 const profilesRouter = require('./routes/profile_routes');
 const authRouter = require('./routes/auth_routes');
@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({
   extended: false,
 }));
 
-authRouter.use(session({
+app.use(session({
   resave: false,
   saveUninitialized: false,
   secret: 'tilt huff blown back',
@@ -35,12 +35,11 @@ app.get('/', (req, res) => {
     title: `Casey Book!`,
     heading: `Welcome to Casey Book!`,
     subheading: `It's like Facebook, only made by some guy named 'Casey'.`,
-    showLogin: true,
   });
 });
 
 app.use('/profile', profilesRouter);
-app.use('/auth', authRouter);
+app.use('/authenticate', authRouter);
 
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);

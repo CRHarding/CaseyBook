@@ -6,12 +6,15 @@
 </div>
   <h1><%= heading %></h1>
   <h2><%= subheading %></h2>
-  <%if (showLogin) {%>
-    <form action='/profile/authenticate' method = 'post'>
-      <input name='uname' type='text' placeholder = 'Name'/>
-      <input name='upass' type='password' placeholder = 'Password'/>
-      <input type='submit' value='Enter'/>
-    </form>
-  <%}%>
-  <p>New user? Click here!</p><button id='newUser'>I'm new!</button>
+
+  <form action='/authenticate/login' method = 'post'>
+    <input name='username' type='text' placeholder = 'Name'/>
+    <input name='password' type='password' placeholder = 'Password'/>
+    <input type='submit' value='Enter'/>
+  </form>
+
+  <form action='/authenticate/register' method='get'>
+    <p>New user? Click here!</p><input type='submit' value="I'm new!"/>
+  </form>
+
 <% include ./partials/footer %>

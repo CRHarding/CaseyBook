@@ -3,12 +3,11 @@ const profileRouter = express.Router();
 const profileController = require('../controllers/profile_Controller');
 const viewsController = require('../controllers/views_Controller');
 const authController = require('../controllers/auth_Controller');
+profileRouter.use(authController.isLoggedIn);
 
-profileRouter.get('/', profileController.findByUsername);
-profileRouter.post('/', authController.authenticate, profileController.createUser, viewsController.showUser);
-
-profileRouter.get('/:id', profileController.landingPage, viewsController.showUser);
-profileRouter.put('/:id', profileController.updateUser, viewsController.showUser);
-profileRouter.delete('/:id', profileController.delete);
+profileRouter.route('/:id')
+  .get(profileController.findByUsername, viewsController.showUser)
+  .put(profileController.findByUsername, authController.isUser, viewsController.showEdit)
+  .delete(profileController.findByUsername, authController.isUser, profileController.delete);
 
 module.exports = profileRouter;
