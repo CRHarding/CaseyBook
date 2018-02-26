@@ -7,6 +7,9 @@ This project is a rough clone of the popular social media site, facebook.
 The user will have the ability to create a new account, update that account
 friend other accounts, and delete their account.
 
+![wireframe1](wireframe1.jpg)
+![wireframe2](wireframe2.jpg)
+
 #### Technologies Used
 1. Javascript
 2. EJS
