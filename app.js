@@ -30,16 +30,23 @@ app.use(session({
   secret: 'tilt huff blown back',
 }));
 
-app.get('/', (req, res) => {
-  res.render('index', {
-    title: `Casey Book!`,
-    heading: `Welcome to Casey Book!`,
-    subheading: `It's like Facebook, only made by some guy named 'Casey'.`,
-  });
+app.use(function (req, res, next) {
+  const err = req.session.error;
+  const msg = req.session.success;
+  delete req.session.error;
+  delete req.session.success;
+  res.locals.message = ' ';
+  if (err) res.locals.message = `<p class="msg error">${err}</p>`;
+  if (msg) res.locals.message = `<p class="msg success">${msg}</p>`;
+  next();
 });
 
 app.use('/profile', profilesRouter);
 app.use('/authenticate', authRouter);
+
+app.get('/*', (req, res) => {
+  res.render('index');
+});
 
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);

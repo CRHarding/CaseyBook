@@ -44,7 +44,7 @@ module.exports = {
   },
 
   isUser(req, res, next) {
-    if (req.session.user.id === res.locals.quote.author_id) {
+    if (req.session.user === res.locals.user) {
       next();
     } else {
       req.session.error = 'Only the user can edit it.';
@@ -53,10 +53,28 @@ module.exports = {
   },
 
   authenticate(req, res, next) {
-    if (users.findByUsername(req.body)) {
+    users.findByUsername(req.body)
+    .then(user => {
+      req.session.regenerate(function () {
+        req.session.user = user;
+        req.session.success = 'Authenticated as ' + user.username;
+      });
+
       next();
-    } else {
-      console.log('Username and / or password entered incorrectly!');
-    };
+    })
+    .catch(err => {
+      req.session.error = 'Authentication failed. Please try again';
+      res.redirect(`back`);
+    });
+  },
+
+  delete(req, res, next) {
+    console.log('deleting: ', req.body);
+    users.destroyByUsername(req.body)
+    .then(() => next())
+    .catch(err => {
+      console.log('user not found');
+      next(err);
+    });
   },
 };

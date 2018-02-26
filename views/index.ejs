@@ -4,9 +4,9 @@
   <a href='#news'>News</a>
   <a href='#contact'>Contact</a>
 </div>
-  <h1><%= heading %></h1>
-  <h2><%= subheading %></h2>
-
+  <h1>Welcome to Casey Book!</h1>
+  <h2>It's like Facebook, only made by some guy named 'Casey'</h2>
+  
   <form action='/authenticate/login' method = 'post'>
     <input name='username' type='text' placeholder = 'Name'/>
     <input name='password' type='password' placeholder = 'Password'/>
@@ -15,6 +15,10 @@
 
   <form action='/authenticate/register' method='get'>
     <p>New user? Click here!</p><input type='submit' value="I'm new!"/>
+  </form>
+
+  <form action='/authenticate/delete' method='get'>
+    <p>Delete your account? Are you sure?...ok, then, click here!</p><input type='submit' value='Delete'/>
   </form>
 
 <% include ./partials/footer %>

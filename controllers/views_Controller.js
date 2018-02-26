@@ -12,4 +12,16 @@ module.exports = {
   showEdit(req, res, next) {
 
   },
+
+  showLogin(req, res) {
+    res.render('login');
+  },
+
+  showDelete(req, res) {
+    res.render('delete');
+  },
+
+  showHome(req, res) {
+    res.redirect('/index');
+  },
 };

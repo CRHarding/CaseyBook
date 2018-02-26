@@ -13,8 +13,9 @@ module.exports = {
     WHERE id=$[user.id] RETURNING name, password`, user);
   },
 
-  destroyByUsername(username) {
-    return profileDB.none(`DELETE FROM users WHERE username = $1`, username);
+  destroyByUsername(user) {
+    console.log('deleting user: ', user.username);
+    return profileDB.none(`DELETE FROM users WHERE username = $1`, user.username);
   },
 
   findByUsername(user) {
