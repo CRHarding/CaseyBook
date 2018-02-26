@@ -34,15 +34,14 @@ returning user or you click the register button where you are taken to a registr
 fill out the required information.
 
 #### Unsolved problems
-1. I need to implement delete functionality
-2. Set up the friends database
-3. Give users the ability to friend other users
-4. Give users the ability to fill out a profile that others can see
-5. Give users the ability to write on their own wall
-6. Give users the ability to comment on others profiles
-7. Hash / salt passwords so that they are secure
-8. Set up a comments database that keeps track of who wrote what and where so that only the author of the comment can edit it
-9. General CSS / HTML beauty upgrades...
+1. Set up the friends database
+2. Give users the ability to friend other users
+3. Give users the ability to fill out a profile that others can see
+4. Give users the ability to write on their own wall
+5. Give users the ability to comment on others profiles
+6. Hash / salt passwords so that they are secure
+7. Set up a comments database that keeps track of who wrote what and where so that only the author of the comment can edit it
+8. General CSS / HTML beauty upgrades...
 
 #### Links and Resources
 * https://www.facebook.com
