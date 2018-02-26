@@ -15,19 +15,6 @@ module.exports = {
     });
   },
 
-  save(req, res, next) {
-    console.log('inside save user', req.body);
-    users.save(req.body)
-    .then(user => {
-      req.session.user = user;
-      console.log(user);
-      next();
-    })
-    .catch(err => {
-      console.log('user save failed', err);
-    });
-  },
-
   logout(req, res) {
     req.session.destroy(() => {
       res.redirect('/');
@@ -55,26 +42,15 @@ module.exports = {
   authenticate(req, res, next) {
     users.findByUsername(req.body)
     .then(user => {
-      req.session.regenerate(function () {
-        req.session.user = user;
-        req.session.success = 'Authenticated as ' + user.username;
-      });
-
+      req.session.user = user;
+      console.log('authentication worked for user: ', req.session.user);
+      req.session.success = 'Authenticated as ' + user.username;
       next();
     })
     .catch(err => {
+      console.log('authentication failed');
       req.session.error = 'Authentication failed. Please try again';
       res.redirect(`back`);
-    });
-  },
-
-  delete(req, res, next) {
-    console.log('deleting: ', req.body);
-    users.destroyByUsername(req.body)
-    .then(() => next())
-    .catch(err => {
-      console.log('user not found');
-      next(err);
     });
   },
 };

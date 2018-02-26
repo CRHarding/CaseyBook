@@ -8,6 +8,12 @@ module.exports = {
     VALUES($[username], $[password]) RETURNING username, password`, user);
   },
 
+  getUsers() {
+    return profileDB.many(`
+      SELECT *
+      FROM users`);
+  },
+
   update(user) {
     return profileDB.one(`UPDATE users SET name=$[user.name], password=$[user.password]
     WHERE id=$[user.id] RETURNING name, password`, user);

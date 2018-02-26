@@ -1,5 +1,6 @@
 module.exports = {
   showUser(req, res) {
+    console.log('inside show user --->', req.session.user);
     res.render('profiles/index', {
       user: req.session.user,
     });

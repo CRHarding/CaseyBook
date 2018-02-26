@@ -35,17 +35,25 @@ module.exports = {
   },
 
   delete(req, res, next) {
-    users.destroy(req.params.username)
-    .then(() => {
-      res.json({
-        message: `Ok, user with id ${req.params.id} deleted`,
-      });
+    console.log('deleting: ', req.body);
+    users.destroyByUsername(req.body)
+    .then(() => next())
+    .catch(err => {
+      console.log('user not found');
+      next(err);
+    });
+  },
+
+  save(req, res, next) {
+    console.log('inside save user', req.body);
+    users.save(req.body)
+    .then(user => {
+      req.session.user = user;
+      console.log(user);
+      next();
     })
     .catch(err => {
-      res.status(500).json({
-        message: 'error',
-        error: err,
-      });
+      console.log('user save failed', err);
     });
   },
 

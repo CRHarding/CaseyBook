@@ -1,5 +1,7 @@
 <% include ../partials/boilerplate %>
 
 <h1>USER PAGE FOR <%=user.username%></h1>
-
+<form action='/profile/delete' method='get'>
+  <p>Delete your account? Are you sure?...ok, then, click here!</p><input type='submit' value='Delete'/>
+</form>
 <% include ../partials/footer %>
