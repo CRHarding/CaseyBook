@@ -7,7 +7,6 @@ profileRouter.use(authController.isLoggedIn);
 
 profileRouter.route('/:id')
   .get(profileController.findByUsername, viewsController.showUser)
-  .put(profileController.findByUsername, authController.isUser, viewsController.showEdit)
-  .delete(profileController.findByUsername, authController.isUser, profileController.delete);
+  .put(profileController.findByUsername, authController.isUser, viewsController.showEdit);
 
 module.exports = profileRouter;
