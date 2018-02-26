@@ -14,4 +14,7 @@ profileRouter.route('/:id')
   .get(profileController.findByUsername, viewsController.showUser)
   .put(profileController.findByUsername, authController.isUser, viewsController.showEdit);
 
+profileRouter.route('/friend/:id')
+  .get(profileController.findByUsername, viewsController.showFriendPage);
+
 module.exports = profileRouter;

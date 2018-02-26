@@ -1,6 +1,11 @@
 <% include ../partials/boilerplate %>
 
 <h1>USER PAGE FOR <%=user.username%></h1>
+
+<p>Other users (aka future friends!)</p>
+<% for (let user of users) { %>
+  <a href='/profile/friend/<%=user.username%>'><%=user.username%></a>
+<%}%>
 <form action='/profile/delete' method='get'>
   <p>Delete your account? Are you sure?...ok, then, click here!</p><input type='submit' value='Delete'/>
 </form>

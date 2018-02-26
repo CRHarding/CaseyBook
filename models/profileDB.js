@@ -24,13 +24,20 @@ module.exports = {
     return profileDB.none(`DELETE FROM users WHERE username = $1`, user.username);
   },
 
-  findByUsername(user) {
-    console.log('inside find by username', user);
+  authenticateByUsername(user) {
+    console.log('inside authenticate by username', user);
     return profileDB.one(`SELECT *
                                         FROM users
                                         WHERE username = $[username]
                                         AND password = $[password]`,
                                         user);
+  },
+
+  findByUsername(user) {
+    console.log('inside find by username', user);
+    return profileDB.one(`SELECT *
+                                        FROM users
+                                        WHERE username = $1`, user);
   },
 
   create(user) {

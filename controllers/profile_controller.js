@@ -12,6 +12,17 @@ module.exports = {
     });
   },
 
+  getAllUsers(req, res, next) {
+    users.getUsers()
+    .then(users => {
+      req.session.users = users;
+      next();
+    })
+    .catch(err => {
+      next(err);
+    });
+  },
+
   createUser(req, res, next) {
     users.save(req.params.username, req.params.pass)
     .then(result => {
@@ -37,7 +48,11 @@ module.exports = {
   delete(req, res, next) {
     console.log('deleting: ', req.body);
     users.destroyByUsername(req.body)
-    .then(() => next())
+    .then((user) => {
+      req.session.destroy(() => {
+        res.redirect('/');
+      });
+    })
     .catch(err => {
       console.log('user not found');
       next(err);
@@ -57,22 +72,16 @@ module.exports = {
     });
   },
 
-  findByUsername(req, res) {
-    console.log(`inside controller findbyusername -->`, req.body.username);
-    username = req.body.username;
+  findByUsername(req, res, next) {
+    console.log(`inside controller findbyusername -->`, req.params.id);
+    username = req.params.id;
     users.findByUsername(username)
     .then(foundUser => {
       console.log(`User found -->`, foundUser);
-      res.json({
-        message: 'found user',
-        user: foundUser,
-      });
+      next();
     })
     .catch(err => {
-      res.status(500).json({
-        message: 'User not found',
-        err: err,
-      });
+      next(err);
     });
   },
 };

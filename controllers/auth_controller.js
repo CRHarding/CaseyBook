@@ -3,7 +3,6 @@ const hasher = require('pbkdf2-password')();
 
 module.exports = {
   checkUser(req, res, next) {
-    console.log('inside checkuser', req.body);
     users.findByUsername(req.body)
     .then(user => {
       req.session.error = 'That username already exists!';
@@ -40,15 +39,13 @@ module.exports = {
   },
 
   authenticate(req, res, next) {
-    users.findByUsername(req.body)
+    users.authenticateByUsername(req.body)
     .then(user => {
       req.session.user = user;
-      console.log('authentication worked for user: ', req.session.user);
       req.session.success = 'Authenticated as ' + user.username;
       next();
     })
     .catch(err => {
-      console.log('authentication failed');
       req.session.error = 'Authentication failed. Please try again';
       res.redirect(`back`);
     });
