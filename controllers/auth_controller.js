@@ -3,14 +3,28 @@ const hasher = require('pbkdf2-password')();
 
 module.exports = {
   checkUser(req, res, next) {
+    req.session.oldUser = req.body;
     users.findByUsername(req.body)
     .then(user => {
       req.session.error = 'That username already exists!';
       console.log('That username already exists!');
-      res.redirect('/authenticate/register');
+      res.redirect('back');
     })
     .catch(err => {
       next();
+    });
+  },
+
+  getUserId(req, res, next) {
+    console.log('inside get user id', req.session.user);
+    users.findByUsername(req.session.user)
+    .then(user => {
+      console.log('found user -->', user);
+      req.session.user = user;
+      next();
+    })
+    .catch(err => {
+      next(err);
     });
   },
 
@@ -25,12 +39,13 @@ module.exports = {
       next();
     } else {
       req.session.error = 'Login required';
-      res.redirect('/authenticate/login');
+      res.redirect('back');
     }
   },
 
   isUser(req, res, next) {
-    if (req.session.user === res.locals.user) {
+    console.log(req.session.user.username, req.params.id);
+    if (req.session.user.username === req.params.id) {
       next();
     } else {
       req.session.error = 'Only the user can edit it.';

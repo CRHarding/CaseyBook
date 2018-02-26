@@ -35,8 +35,11 @@ module.exports = {
   },
 
   updateUser(req, res, next) {
-    users.update(req.params.username, req.params.pass)
-    .then(result => {
+    console.log(req.session.oldUser);
+    req.session.oldUser.id = req.session.user.id;
+    console.log('inside update user ---> ', req.session.user);
+    users.update(req.session.oldUser)
+    .then(user => {
       res.locals.user = user;
       next();
     })

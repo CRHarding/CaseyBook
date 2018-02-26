@@ -6,6 +6,9 @@
 <% for (let user of users) { %>
   <a href='/profile/friend/<%=user.username%>'><%=user.username%></a>
 <%}%>
+<form action='/profile/edit/<%=user.username%>' method='get'>
+  <p>Edit your information</p><input type='submit' value='Edit'/>
+</form>
 <form action='/profile/delete' method='get'>
   <p>Delete your account? Are you sure?...ok, then, click here!</p><input type='submit' value='Delete'/>
 </form>

@@ -19,8 +19,11 @@ module.exports = {
     res.render('register');
   },
 
-  showEdit(req, res, next) {
-
+  showEdit(req, res) {
+    console.log('inside show edit -->', req.params.id);
+    res.render('profiles/edit', {
+      user: req.params.id,
+    });
   },
 
   showLogin(req, res) {

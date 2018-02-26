@@ -15,8 +15,9 @@ module.exports = {
   },
 
   update(user) {
-    return profileDB.one(`UPDATE users SET name=$[user.name], password=$[user.password]
-    WHERE id=$[user.id] RETURNING name, password`, user);
+    console.log('inside update user --->', user);
+    return profileDB.one(`UPDATE users SET username=$[username], password=$[password]
+    WHERE id=$[id] RETURNING username, password`, user);
   },
 
   destroyByUsername(user) {
@@ -34,10 +35,10 @@ module.exports = {
   },
 
   findByUsername(user) {
-    console.log('inside find by username', user);
+    console.log('inside find by username', user.username);
     return profileDB.one(`SELECT *
                                         FROM users
-                                        WHERE username = $1`, user);
+                                        WHERE username = $1`, user.username);
   },
 
   create(user) {

@@ -11,8 +11,11 @@ profileRouter.route('/delete')
     .delete(authController.authenticate, profileController.delete, viewsController.showHome);
 
 profileRouter.route('/:id')
-  .get(profileController.findByUsername, viewsController.showUser)
-  .put(profileController.findByUsername, authController.isUser, viewsController.showEdit);
+  .get(profileController.findByUsername, viewsController.showUser);
+
+profileRouter.route('/edit/:id')
+  .get(authController.isUser, authController.getUserId, viewsController.showEdit)
+  .post(authController.checkUser, profileController.updateUser, profileController.getAllUsers, viewsController.showUser);
 
 profileRouter.route('/friend/:id')
   .get(profileController.findByUsername, viewsController.showFriendPage);
