@@ -82,6 +82,7 @@ module.exports = {
   },
 
   findFriendByUsername(req, res, next) {
+    console.log('inside findfriendbyusername: --->', req.params.id);
     username = req.params.id;
     users.findFriendByUsername(username)
     .then(foundFriend => {

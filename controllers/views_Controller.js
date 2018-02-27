@@ -7,8 +7,10 @@ module.exports = {
   },
 
   showFriendPage(req, res) {
+    console.log('inside showfriendpage -->', req.params.id, res.locals.friends);
     res.render('profiles/friendPage', {
       user: req.params.id,
+      friends: res.locals.friends,
     });
   },
 

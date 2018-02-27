@@ -42,21 +42,20 @@ module.exports = {
                                         WHERE username = $1`, user);
   },
 
-  areFriends(userOne, userTwo) {
-    return profileDB.one(`SELECT DISTINCT userOne, userTwo
+  areFriends(friends) {
+    console.log('inside db are friends', friends.user_id, friends.friend_id);
+    return profileDB.many(`SELECT user_id, friend_id
                                         FROM friends
-                                        WHERE status = 1
-                                        UNION
-                                        SELECT DISTINCT userTwo, userOne
-                                        FROM friends
-                                        WHERE status = 1`);
+                                        WHERE user_id = friends.user_id AND
+                                        friend_id = friends.friend_id AND
+                                        status = 1
+                                        `, friends);
   },
 
-  addFriend(user_id, friend_id, status) {
-    console.log(user_id, friend_id, status);
+  addFriend(friend) {
     return profileDB.one(`INSERT INTO friends (user_id, friend_id, status)
                                         VALUES ($[user_id], $[friend_id], $[status])
-                                        RETURNING user_id`, user_id, friend_id, status);
+                                        RETURNING user_id`, friend);
   },
 
   create(user) {

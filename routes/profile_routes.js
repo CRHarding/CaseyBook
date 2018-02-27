@@ -3,7 +3,7 @@ const profileRouter = express.Router();
 const profileController = require('../controllers/profile_Controller');
 const viewsController = require('../controllers/views_Controller');
 const authController = require('../controllers/auth_Controller');
-const friendController = require('../controllers/friend_Controller');
+const friendsController = require('../controllers/friend_Controller');
 
 profileRouter.use(authController.isLoggedIn);
 
@@ -19,10 +19,10 @@ profileRouter.route('/edit/:id')
   .post(authController.checkUser, profileController.updateUser, profileController.getAllUsers, viewsController.showUser);
 
 profileRouter.route('/friend/:id')
-  .get(profileController.findFriendByUsername, viewsController.showFriendPage);
+  .get(profileController.findFriendByUsername, friendsController.areFriends, viewsController.showFriendPage);
 
 profileRouter.route('/addFriend/:id')
-  .get(friendController.addFriend, viewsController.showFriendPage);
+  .get(friendsController.areFriends, friendsController.addFriend, viewsController.showFriendPage);
 
 module.exports = profileRouter;
 

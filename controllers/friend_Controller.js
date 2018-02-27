@@ -1,19 +1,25 @@
 const users = require('../models/profileDB');
 
 module.exports = {
-    // alreadyFriends(req, res, next) {
-    //   users.areFriends(req.params.id, req.session.user)
-    //   .then(friend => {
-    //     res.error = ''
-    //   })
-    //   .catch(err => {
-    //     next();
-    //   });
-    // },
+    areFriends(req, res, next) {
+      const areFriends = {'user_id': req.params.id, 'friend_id': req.session.user.username };
+      console.log('inside are friends ---->', areFriends);
+      users.areFriends(areFriends)
+      .then(friend => {
+        res.locals.friends = true;
+        console.log(`THEY'RE FRIENDS`);
+        next();
+      })
+      .catch(err => {
+        res.locals.friends = false;
+        console.log(`THEY AREN'T FRIENDS`);
+        next(err);
+      });
+    },
 
     addFriend(req, res, next) {
-      console.log('inside add friend -->', req.params.id, req.session.user.username);
-      users.addFriend(req.params.id, req.session.user.username, 1)
+      const updateFriends = { 'user_id': req.params.id, 'friend_id': req.session.user.username, 'status': 1 };
+      users.addFriend(updateFriends)
       .then(friend => {
         req.session.success = `You're not friends!`;
         next();
