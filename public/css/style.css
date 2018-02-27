@@ -2,6 +2,24 @@ body, html {
   background-color: lightgrey;
 }
 
+h1 {
+  background-color: #3b5998;
+  color: white;
+  display: block;
+  padding: 30px;
+  text-align: center;
+  width: 100%;
+}
+
+h2 {
+  background-color: #3b5998;
+  color: white;
+  display: block;
+  padding: 30px;
+  text-align: center;
+  width: 100%;
+}
+
 .navbar {
   background-color: #3b5998;
   overflow: hidden;
@@ -24,22 +42,12 @@ body, html {
   color: black;
 }
 
-h1 {
-  background-color: #3b5998;
-  color: white;
-  display: block;
-  padding: 30px 0px 15px 0px;
-  text-align: center;
-  width: 100%;
-}
+#aboutme {
 
-h2 {
-  background-color: #3b5998;
-  color: white;
-  display: block;
-  padding: 30px;
-  text-align: center;
-  width: 100%;
+  width: 50%;
+}
+#logout {
+  float: right;
 }
 
 footer {

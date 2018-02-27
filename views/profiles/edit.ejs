@@ -1,7 +1,19 @@
 <% include ../partials/boilerplate.ejs %>
 <h1>EDIT PAGE</h1>
 <%- message %>
-<form action="/profile/edit/<%=user%>" method="post">
+<form action="/profile/edit/<%=user.username%>" method="post">
+  <label>
+    <p>First Name:</p>
+    <input type="text" name="fname" value='<%=user.fname%>'/>
+  </label>
+  <label>
+    <p>Last Name:</p>
+    <input type="text" name="lname" value='<%=user.lname%>'/>
+  </label>
+  <label>
+    <p>Profile:</p>
+    <textarea name="aboutme" id="aboutme" value='<%=user.aboutme%>'></textarea>
+  </label>
   <% include ../partials/userAuth.ejs %>
 </form>
 <% include ../partials/footer.ejs %>

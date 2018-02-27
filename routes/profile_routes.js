@@ -17,9 +17,6 @@ profileRouter.route('/delete')
     .get(viewsController.showDelete)
     .delete(authController.authenticate, profileController.delete, viewsController.showHome);
 
-profileRouter.route('/:id')
-  .get(profileController.findByUsername, viewsController.showUser);
-
 profileRouter.route('/edit/:id')
   .get(authController.isUser, authController.getUserId, viewsController.showEdit)
   .post(authController.checkUser, profileController.updateUser, profileController.getAllUsers, viewsController.showUser);
@@ -32,6 +29,12 @@ profileRouter.route('/addFriend/:id')
 
 profileRouter.route('/confirmFriend/:id')
   .get(friendsController.areFriends, friendsController.addFriend, viewsController.showFriendPage);
+
+profileRouter.route('/logout')
+  .get(authController.logout);
+
+  profileRouter.route('/:id')
+    .get(profileController.findByUsername, viewsController.showUser);
 
 module.exports = profileRouter;
 

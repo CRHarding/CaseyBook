@@ -4,6 +4,22 @@ const hasher = require('pbkdf2-password')();
 module.exports = {
   checkUser(req, res, next) {
     req.session.oldUser = req.body;
+    if (req.body.username != req.session.user.username) {
+      users.findByUsername(req.body)
+      .then(user => {
+        req.session.error = 'That username already exists!';
+        res.redirect('back');
+      })
+      .catch(err => {
+        next();
+      });
+    } else {
+      next();
+    }
+  },
+
+  checkNewUser(req, res, next) {
+    req.session.oldUser = req.body;
     users.findByUsername(req.body)
     .then(user => {
       req.session.error = 'That username already exists!';

@@ -8,6 +8,10 @@
     <a href='/profile/friend/<%=oneUser.username%>'><%=oneUser.username%></a>
   <% } %>
 <%}%>
+<h4>Your information:</h4>
+<p>Your name: <%=user.lname%>, <%=user.fname%> <%=user.lname%></p>
+<p>Your username: <%=user.username%></p>
+<p>Your profile: <%=user.aboutme%></p>
 <form action='/profile/edit/<%=user.username%>' method='get'>
   <p>Edit your information</p><input type='submit' value='Edit'/>
 </form>

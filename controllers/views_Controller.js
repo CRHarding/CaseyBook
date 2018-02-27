@@ -1,5 +1,6 @@
 module.exports = {
   showUser(req, res) {
+          console.log('inside show user --->', req.session.user, req.session.users);
     res.render('profiles/homepage', {
       user: req.session.user,
       users: req.session.users,
@@ -23,7 +24,7 @@ module.exports = {
 
   showEdit(req, res) {
     res.render('profiles/edit', {
-      user: req.params.id,
+      user: req.session.user,
     });
   },
 

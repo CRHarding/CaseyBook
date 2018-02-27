@@ -2,6 +2,14 @@
 <h1>REGISTER PAGE</h1>
 <%- message %>
 <form action="/authenticate/register" method="post">
+  <label>
+    <p>First Name:</p>
+    <input type="text" name="fname"/>
+  </label>
+  <label>
+    <p>Last Name:</p>
+    <input type="text" name="lname"/>
+  </label>
   <% include ./partials/userAuth.ejs %>
 </form>
 <% include ./partials/footer.ejs %>

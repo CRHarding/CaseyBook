@@ -6,7 +6,7 @@ const profileController = require('../controllers/profile_Controller');
 
 authRouter.route('/register')
   .get(viewsController.showRegister)
-  .post(authController.checkUser, profileController.save, profileController.getAllUsers, viewsController.showUser);
+  .post(authController.checkNewUser, profileController.save, profileController.getAllUsers, viewsController.showUser);
 
 authRouter.route('/login')
   .post(authController.authenticate, profileController.getAllUsers, viewsController.showUser);

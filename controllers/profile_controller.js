@@ -36,10 +36,11 @@ module.exports = {
 
   updateUser(req, res, next) {
     req.session.oldUser.id = req.session.user.id;
+    console.log('inside update user oldUser, user-->', req.session.oldUser, req.session.user);
     users.update(req.session.oldUser)
-    .then(user => {
-      res.locals.user = user;
-      req.session.user = user;
+    .then(newUser => {
+      res.locals.user = newUser;
+      req.session.user = newUser;
       next();
     })
     .catch(err => {
@@ -68,6 +69,8 @@ module.exports = {
       next();
     })
     .catch(err => {
+      console.log('DID NOT WORK');
+      next(err);
     });
   },
 
