@@ -1,18 +1,23 @@
 module.exports = {
   showUser(req, res) {
     console.log('inside show user pending friends ----->', req.session.pendingFriends);
-
-    if (req.session.pendingFriends) {
+    console.log('inside show users pending nonfriends ---->', req.session.nonFriends);
+    if (req.session.pendingFriends.length > 0) {
       showPending = true;
     } else {
       showPending = false;
     }
 
+    if (req.session.nonFriends.length > 0) {
+      showNonFriends = true;
+    } else {
+      showNonFriends = false;
+    }
+
     res.render('profiles/homepage', {
       user: req.session.user,
-      users: req.session.users,
+      users: req.session.nonFriends,
       pendingFriends: req.session.pendingFriends,
-      areUser: true,
       pending: showPending,
     });
   },

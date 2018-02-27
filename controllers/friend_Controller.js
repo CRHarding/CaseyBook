@@ -82,7 +82,19 @@ module.exports = {
         next();
       })
       .catch(err => {
-        next(err);
+        next();
+      });
+    },
+
+    getNonFriends(req, res, next) {
+      users.getNonFriends(req.session.user)
+      .then(nonFriends => {
+        req.session.nonFriends = nonFriends;
+        console.log('NON FRIENDS -------->', nonFriends);
+        next();
+      })
+      .catch(err => {
+        next();
       });
     },
   };

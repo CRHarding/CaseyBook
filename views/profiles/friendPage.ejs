@@ -9,10 +9,4 @@
   </form>
 <% } %>
 
-<% if (pending && areUser) { %>
-  <form action='/profile/confirmFriend/<%=user%>' method='get'>
-    <input type='submit' value="Confirm Friend!"/>
-  </form>
-<% } %>
-
 <% include ../partials/footer %>

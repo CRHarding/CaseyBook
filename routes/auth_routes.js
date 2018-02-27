@@ -10,7 +10,7 @@ authRouter.route('/register')
   .post(authController.checkNewUser, profileController.save, profileController.getAllUsers, viewsController.showUser);
 
 authRouter.route('/login')
-  .post(authController.authenticate, profileController.getAllUsers, friendController.getPendingFriends, viewsController.showUser);
+  .post(authController.authenticate, friendController.getNonFriends, friendController.getPendingFriends, viewsController.showUser);
 
 authRouter.get('/logout', authController.logout);
 

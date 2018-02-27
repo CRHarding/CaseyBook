@@ -80,4 +80,11 @@ module.exports = {
                                         WHERE user_id = $[username]
                                         AND status = 3`, user);
   },
+
+  getNonFriends(user) {
+    return profileDB.any(`SELECT friend_id
+                                        FROM friends
+                                        WHERE user_id = $[username]
+                                        AND status = 4`, user);
+  },
 };
