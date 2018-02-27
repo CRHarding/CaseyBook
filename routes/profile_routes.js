@@ -11,7 +11,7 @@ profileRouter.route('/')
   .get(viewsController.showHome);
 
 profileRouter.route('/myProfile')
-  .get(viewsController.showUser);
+  .get(friendsController.getPendingFriends, viewsController.showUser);
 
 profileRouter.route('/delete')
     .get(viewsController.showDelete)
@@ -28,7 +28,7 @@ profileRouter.route('/addFriend/:id')
   .get(friendsController.arePending, friendsController.addFriend, viewsController.showFriendPage);
 
 profileRouter.route('/confirmFriend/:id')
-  .get(friendsController.areFriends, friendsController.addFriend, viewsController.showFriendPage);
+  .get(friendsController.areFriends, friendsController.confirmFriend, viewsController.showFriendPage);
 
 profileRouter.route('/logout')
   .get(authController.logout);

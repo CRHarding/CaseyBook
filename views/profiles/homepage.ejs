@@ -1,13 +1,19 @@
 <% include ../partials/boilerplate %>
 
 <h1>USER PAGE FOR <%=user.username%></h1>
-
+<%- message %>
 <p>Other users (aka future friends!)</p>
 <% for (let oneUser of users) { %>
   <% if (oneUser.username != user.username) { %>
     <a href='/profile/friend/<%=oneUser.username%>'><%=oneUser.username%></a>
   <% } %>
 <%}%>
+<% if (pending) { %>
+  <p>PENDING FRIENDS</p>
+  <% for (let oneFriend of pendingFriends) { %>
+    <a href='/profile/confirmFriend/<%=oneFriend.friend_id%>'><%=oneFriend.friend_id%></a>
+  <%}%>
+<% } %>
 <h4>Your information:</h4>
 <p>Your name: <%=user.lname%>, <%=user.fname%> <%=user.lname%></p>
 <p>Your username: <%=user.username%></p>

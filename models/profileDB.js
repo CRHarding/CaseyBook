@@ -4,21 +4,20 @@ const hasher = require('pbkdf2-password')();
 module.exports = {
   save(user) {
     return profileDB.one(`INSERT INTO users(fname, lname, username, password, aboutme)
-    VALUES($[fname], $[lname], $[username], $[password], $[aboutme]) RETURNING fname, lname, username, password, aboutme`, user);
+                                        VALUES($[fname], $[lname], $[username],
+                                          $[password], $[aboutme]) RETURNING *`, user);
   },
 
   getUsers() {
-    return profileDB.many(`
-      SELECT *
-      FROM users`);
+    return profileDB.many(`SELECT *
+                                            FROM users`);
   },
 
   update(user) {
     return profileDB.one(`UPDATE users SET fname = $[fname], lname = $[lname],
                                           username=$[username], password=$[password],
                                           aboutme = $[aboutme]
-                                        WHERE id=$[id] RETURNING
-                                          fname, lname, username, password, aboutme`, user);
+                                        WHERE id=$[id] RETURNING *`, user);
   },
 
   destroyByUsername(user) {
@@ -51,8 +50,7 @@ module.exports = {
                                         FROM friends
                                         WHERE user_id = friends.user_id AND
                                         friend_id = friends.friend_id AND
-                                        status = 1
-                                        `, friends);
+                                        status = 1`, friends);
   },
 
   arePending(friends) {
@@ -72,11 +70,14 @@ module.exports = {
   },
 
   create(user) {
-    return profileDB.one(
-      `
-      INSERT INTO users (username, password)
-      VALUES ($[username], $[password]) RETURNING *
-      `, user
-    );
+    return profileDB.one(`INSERT INTO users (username, password)
+                                        VALUES ($[username], $[password]) RETURNING *`, user);
+  },
+
+  getPendingFriends(user) {
+    return profileDB.any(`SELECT friend_id
+                                        FROM friends
+                                        WHERE user_id = $[username]
+                                        AND status = 3`, user);
   },
 };

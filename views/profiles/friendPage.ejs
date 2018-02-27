@@ -1,8 +1,8 @@
 <% include ../partials/boilerplate %>
 
 <h1>USER PAGE FOR <%=user%></h1>
-
-<p>Their information...</p>
+<%- message %>
+<p><%=user%>'s Profile: <%=user.aboutme%></p>
 <% if (!friends && !pending) { %>
   <form action='/profile/addFriend/<%=user%>' method='get'>
     <input type='submit' value="Add Friend!"/>

@@ -1,10 +1,19 @@
 module.exports = {
   showUser(req, res) {
-          console.log('inside show user --->', req.session.user, req.session.users);
+    console.log('inside show user pending friends ----->', req.session.pendingFriends);
+
+    if (req.session.pendingFriends) {
+      showPending = true;
+    } else {
+      showPending = false;
+    }
+
     res.render('profiles/homepage', {
       user: req.session.user,
       users: req.session.users,
+      pendingFriends: req.session.pendingFriends,
       areUser: true,
+      pending: showPending,
     });
   },
 
@@ -14,7 +23,6 @@ module.exports = {
       user: req.params.id,
       friends: res.locals.friends,
       pending: res.locals.pending,
-      areUser: false,
     });
   },
 

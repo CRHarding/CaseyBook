@@ -13,9 +13,9 @@ CREATE TABLE users (
 );
 
 CREATE TABLE friends (
-  friends_id SERIAL PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   user_id VARCHAR(255) REFERENCES users(username) ON UPDATE CASCADE ON DELETE CASCADE NOT NULL,
-  friend_id VARCHAR(255) REFERENCES users(username),
+  friend_id VARCHAR(255) REFERENCES users(username) ON UPDATE CASCADE ON DELETE CASCADE NOT NULL,
   status integer default 4
 );
 

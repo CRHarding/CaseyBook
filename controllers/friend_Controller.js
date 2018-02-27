@@ -22,9 +22,9 @@ module.exports = {
     arePending(req, res, next) {
       const pendingFriends = {'user_id': req.params.id, 'friend_id': req.session.user.username };
       console.log('inside pending ---->', pendingFriends);
-      users.areFriends(pendingFriends)
+      users.arePending(pendingFriends)
       .then(friend => {
-        res.locals.friends = true;
+        res.locals.friends = false;
         res.locals.pending = true;
         console.log(`THEY'RE PENDING`);
         next();
@@ -39,14 +39,17 @@ module.exports = {
 
     addFriend(req, res, next) {
       const updateFriends = { 'user_id': req.params.id, 'friend_id': req.session.user.username, 'status': 3 };
+      console.log('inside addFriend');
       users.addFriend(updateFriends)
       .then(friend => {
+        console.log('setting friend status to 3');
         req.session.pending = `Sending friend request to ${req.session.user.username}`;
         res.locals.pending = true;
-        res.locals.friends = true;
+        res.locals.friends = false;
         next();
       })
       .catch(err => {
+        console.log('error in addfriend.....', err);
         req.session.error = `You can't add this friend...sorry`;
         res.locals.pending = false;
         res.locals.friends = false;
@@ -56,10 +59,11 @@ module.exports = {
 
     confirmFriend(req, res, next) {
       const confirmFriend = { 'user_id': req.params.id, 'friend_id': req.session.user.username, 'status': 1 };
-      users.addFriend(updateFriends)
+      users.addFriend(confirmFriend)
       .then(friend => {
         req.session.success = `Friend added!`;
         res.locals.pending = false;
+        res.locals.friends = true;
         next();
       })
       .catch(err => {
@@ -67,6 +71,18 @@ module.exports = {
         res.locals.friends = false;
         res.locals.pending = false;
         next();
+      });
+    },
+
+    getPendingFriends(req, res, next) {
+      users.getPendingFriends(req.session.user)
+      .then(friends => {
+        req.session.pendingFriends = friends;
+        console.log('PENDING FRIENDS ------->', friends);
+        next();
+      })
+      .catch(err => {
+        next(err);
       });
     },
   };
