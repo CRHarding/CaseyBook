@@ -1,6 +1,6 @@
 \c users_db;
 
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS users cascade;
 DROP TABLE IF EXISTS friends;
 
 CREATE TABLE users (
@@ -10,8 +10,10 @@ CREATE TABLE users (
 );
 
 CREATE TABLE friends (
-  user_id INTEGER REFERENCES users,
-  friend_id INTEGER REFERENCES users
+  friends_id SERIAL PRIMARY KEY,
+  user_id VARCHAR(255) REFERENCES users(username) ON UPDATE CASCADE ON DELETE CASCADE NOT NULL,
+  friend_id VARCHAR(255) REFERENCES users(username),
+  status integer default 2
 );
 
 CREATE INDEX ON users (username);

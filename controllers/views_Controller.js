@@ -1,7 +1,5 @@
 module.exports = {
   showUser(req, res) {
-    console.log('inside show user --->', req.session.user);
-    console.log('inside show users ---->', req.session.users);
     res.render('profiles/index', {
       user: req.session.user,
       users: req.session.users,
@@ -9,7 +7,6 @@ module.exports = {
   },
 
   showFriendPage(req, res) {
-    console.log('inside show friend --->', req.params.id);
     res.render('profiles/friendPage', {
       user: req.params.id,
     });
@@ -20,7 +17,6 @@ module.exports = {
   },
 
   showEdit(req, res) {
-    console.log('inside show edit -->', req.params.id);
     res.render('profiles/edit', {
       user: req.params.id,
     });

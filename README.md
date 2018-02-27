@@ -48,3 +48,9 @@ fill out the required information.
 #### Links and Resources
 * https://www.facebook.com
 * [Color scheme for facebook] http://www.color-hex.com/color-palette/185
+* [database setup for friendships]
+http://www.codedodle.com/2014/12/social-network-friends-database.html
+* [possible further work for database setup...]
+https://www.usenix.org/conference/atc13/technical-sessions/presentation/bronson
+* [this was a great resource for first setting up my friendship db]
+https://dba.stackexchange.com/questions/1688/how-to-design-a-relationship-database-table-to-store-friendship-relationship/1731#1731

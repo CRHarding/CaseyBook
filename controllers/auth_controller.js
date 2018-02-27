@@ -7,7 +7,6 @@ module.exports = {
     users.findByUsername(req.body)
     .then(user => {
       req.session.error = 'That username already exists!';
-      console.log('That username already exists!');
       res.redirect('back');
     })
     .catch(err => {
@@ -16,10 +15,8 @@ module.exports = {
   },
 
   getUserId(req, res, next) {
-    console.log('inside get user id', req.session.user);
     users.findByUsername(req.session.user)
     .then(user => {
-      console.log('found user -->', user);
       req.session.user = user;
       next();
     })
@@ -44,7 +41,6 @@ module.exports = {
   },
 
   isUser(req, res, next) {
-    console.log(req.session.user.username, req.params.id);
     if (req.session.user.username === req.params.id) {
       next();
     } else {

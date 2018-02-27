@@ -35,12 +35,11 @@ module.exports = {
   },
 
   updateUser(req, res, next) {
-    console.log(req.session.oldUser);
     req.session.oldUser.id = req.session.user.id;
-    console.log('inside update user ---> ', req.session.user);
     users.update(req.session.oldUser)
     .then(user => {
       res.locals.user = user;
+      req.session.user = user;
       next();
     })
     .catch(err => {
@@ -49,7 +48,6 @@ module.exports = {
   },
 
   delete(req, res, next) {
-    console.log('deleting: ', req.body);
     users.destroyByUsername(req.body)
     .then((user) => {
       req.session.destroy(() => {
@@ -57,13 +55,11 @@ module.exports = {
       });
     })
     .catch(err => {
-      console.log('user not found');
       next(err);
     });
   },
 
   save(req, res, next) {
-    console.log('inside save user', req.body);
     users.save(req.body)
     .then(user => {
       req.session.user = user;
@@ -71,16 +67,24 @@ module.exports = {
       next();
     })
     .catch(err => {
-      console.log('user save failed', err);
     });
   },
 
   findByUsername(req, res, next) {
-    console.log(`inside controller findbyusername -->`, req.params.id);
     username = req.params.id;
     users.findByUsername(username)
     .then(foundUser => {
-      console.log(`User found -->`, foundUser);
+      next();
+    })
+    .catch(err => {
+      next(err);
+    });
+  },
+
+  findFriendByUsername(req, res, next) {
+    username = req.params.id;
+    users.findFriendByUsername(username)
+    .then(foundFriend => {
       next();
     })
     .catch(err => {
