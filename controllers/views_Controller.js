@@ -1,16 +1,19 @@
 module.exports = {
   showUser(req, res) {
-    res.render('profiles/index', {
+    res.render('profiles/homepage', {
       user: req.session.user,
       users: req.session.users,
+      areUser: true,
     });
   },
 
   showFriendPage(req, res) {
-    console.log('inside showfriendpage -->', req.params.id, res.locals.friends);
+    console.log('inside showfriendpage -->', req.params.id, res.locals.friends, res.locals.pending);
     res.render('profiles/friendPage', {
       user: req.params.id,
       friends: res.locals.friends,
+      pending: res.locals.pending,
+      areUser: false,
     });
   },
 
@@ -33,6 +36,9 @@ module.exports = {
   },
 
   showHome(req, res) {
-    res.redirect('/index');
+    console.log(req.session.isLoggedIn);
+    res.render('index', {
+      isLoggedIn: req.session.isLoggedIn,
+    });
   },
 };

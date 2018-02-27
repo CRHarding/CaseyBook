@@ -63,6 +63,7 @@ module.exports = {
     users.save(req.body)
     .then(user => {
       req.session.user = user;
+      req.session.isLoggedIn = true;
       console.log(user);
       next();
     })

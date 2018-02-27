@@ -53,6 +53,7 @@ module.exports = {
     users.authenticateByUsername(req.body)
     .then(user => {
       req.session.user = user;
+      req.session.isLoggedIn = true;
       req.session.success = 'Authenticated as ' + user.username;
       next();
     })

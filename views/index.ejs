@@ -1,20 +1,16 @@
 <% include ./partials/boilerplate %>
-<div class = 'navbar'>
-  <a href='#home'>Home</a>
-  <a href='#news'>News</a>
-  <a href='#contact'>Contact</a>
-</div>
   <h1>Welcome to Casey Book!</h1>
   <h2>It's like Facebook, only made by some guy named 'Casey'</h2>
   <%- message %>
-  <form action='/authenticate/login' method = 'post'>
-    <input name='username' type='text' placeholder = 'Name'/>
-    <input name='password' type='password' placeholder = 'Password'/>
-    <input type='submit' value='Enter'/>
-  </form>
+  <% if (!isLoggedIn) { %>
+    <form action='/authenticate/login' method = 'post'>
+      <input name='username' type='text' placeholder = 'Name'/>
+      <input name='password' type='password' placeholder = 'Password'/>
+      <input type='submit' value='Enter'/>
+    </form>
 
-  <form action='/authenticate/register' method='get'>
-    <p>New user? Click here!</p><input type='submit' value="I'm new!"/>
-  </form>
-
+    <form action='/authenticate/register' method='get'>
+      <p>New user? Click here!</p><input type='submit' value="I'm new!"/>
+    </form>
+  <% } %>
 <% include ./partials/footer %>

@@ -3,10 +3,16 @@
 <h1>USER PAGE FOR <%=user%></h1>
 
 <p>Their information...</p>
-<% if (!friends) { %>
+<% if (!friends && !pending) { %>
   <form action='/profile/addFriend/<%=user%>' method='get'>
     <input type='submit' value="Add Friend!"/>
   </form>
-<%}%>
+<% } %>
+
+<% if (pending && areUser) { %>
+  <form action='/profile/confirmFriend/<%=user%>' method='get'>
+    <input type='submit' value="Confirm Friend!"/>
+  </form>
+<% } %>
 
 <% include ../partials/footer %>

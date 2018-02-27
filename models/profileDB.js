@@ -44,11 +44,21 @@ module.exports = {
 
   areFriends(friends) {
     console.log('inside db are friends', friends.user_id, friends.friend_id);
-    return profileDB.many(`SELECT user_id, friend_id
+    return profileDB.one(`SELECT user_id, friend_id
                                         FROM friends
                                         WHERE user_id = friends.user_id AND
                                         friend_id = friends.friend_id AND
                                         status = 1
+                                        `, friends);
+  },
+
+  arePending(friends) {
+    console.log('inside db pending', friends.user_id, friends.friend_id);
+    return profileDB.one(`SELECT user_id, friend_id
+                                        FROM friends
+                                        WHERE user_id = friends.user_id AND
+                                        friend_id = friends.friend_id AND
+                                        status = 3
                                         `, friends);
   },
 
