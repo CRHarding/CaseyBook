@@ -3,7 +3,7 @@
 <h1>USER PAGE FOR <%=user%></h1>
 <%- message %>
 <p><%=user%>'s Profile: <%=user.aboutme%></p>
-<% if (!friends && !pending) { %>
+<% if (!pending && !friends && !areFriends) { %>
   <form action='/friend/addFriend/<%=user%>' method='get'>
     <input type='submit' value="Add Friend!"/>
   </form>

@@ -8,9 +8,10 @@ module.exports = {
                                           $[password], $[aboutme]) RETURNING *`, user);
   },
 
-  getUsers() {
+  getUsers(user) {
     return profileDB.any(`SELECT *
-                                            FROM users`);
+                                            FROM users
+                                            WHERE username != $[username]`, user);
   },
 
   update(user) {
@@ -48,8 +49,12 @@ module.exports = {
     console.log('inside db are friends', friends.user_id, friends.friend_id);
     return profileDB.one(`SELECT user_id, friend_id
                                         FROM friends
-                                        WHERE user_id = friends.user_id AND
-                                        friend_id = friends.friend_id AND
+                                        WHERE user_id = $[user_id] AND
+                                        friend_id = $[friend_id] AND
+                                        status = 1
+                                        OR
+                                        user_id = $[friend_id] AND
+                                        friend_id = $[user_id] AND
                                         status = 1`, friends);
   },
 
@@ -57,16 +62,23 @@ module.exports = {
     console.log('inside db pending', friends.user_id, friends.friend_id);
     return profileDB.one(`SELECT user_id, friend_id
                                         FROM friends
-                                        WHERE user_id = friends.user_id AND
-                                        friend_id = friends.friend_id AND
+                                        WHERE user_id = $[user_id] AND
+                                        friend_id = $[friend_id] AND
                                         status = 3
                                         `, friends);
   },
 
-  addFriend(friend) {
+  addPending(friend) {
     return profileDB.one(`INSERT INTO friends (user_id, friend_id, status)
                                         VALUES ($[user_id], $[friend_id], $[status])
                                         RETURNING user_id`, friend);
+  },
+
+  addFriend(friend) {
+    return profileDB.one(`UPDATE friends
+                                          SET  status = $[status]
+                                          WHERE user_id = $[user_id]
+                                          AND friend_id = $[friend_id]`, friend);
   },
 
   create(user) {
@@ -75,24 +87,28 @@ module.exports = {
   },
 
   getPendingFriends(user) {
-    return profileDB.any(`SELECT friend_id
+    console.log('inside getpendingfriends with user----->', user.username);
+    return profileDB.any(`SELECT user_id
                                         FROM friends
-                                        WHERE user_id = $[username]
-                                        AND status = 3`, user);
+                                        WHERE friend_id = $[username]
+                                        AND status = 3
+                                        `, user);
   },
 
   inFriendDatabase(friends) {
-    return profileDB.any(`SELECT user_id, friend_id
+    console.log('in infrienddatabase ---->', friends);
+    return profileDB.one(`SELECT user_id, friend_id
                                         FROM friends
-                                        WHERE user_id = friends.user_id AND
-                                        friend_id = friends.friend_id OR
-                                        user_id = friends.friend_id AND
-                                        friend_id = friends.user_id
+                                        WHERE user_id = $[user_id] AND
+                                        friend_id = $[friend_id]
+                                        OR
+                                        user_id = $[friend_id] AND
+                                        friend_id = $[user_id]
                                         `,  friends);
   },
 
   getNonFriends(user) {
-    console.log('inside getnonfriends ---->', user);
+    console.log('inside getnonfriends with user ---->', user);
     return profileDB.any(`SELECT friend_id
                                         FROM friends
                                         WHERE user_id = $[username]

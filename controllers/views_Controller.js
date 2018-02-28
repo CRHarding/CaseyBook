@@ -1,6 +1,6 @@
 module.exports = {
   showUser(req, res) {
-    console.log('inside show user pending friends ----->', req.session.pendingFriends);
+    console.log('inside show user pending friends ----->', req.session.pendingFriends, req.session.pendingFriends);
     console.log('inside show users nonfriends ---->', req.session.nonFriends);
 
     if (req.session.pendingFriends) {
@@ -9,6 +9,8 @@ module.exports = {
       } else {
         showPending = false;
       }
+    } else {
+      showPending = false;
     }
 
     if (req.session.nonFriends) {
@@ -24,22 +26,25 @@ module.exports = {
       req.session.nonFriends = req.session.users;
     };
 
+    console.log('pendingFriends, pending, nonFriends', req.session.pendingFriends, showPending, showNonFriends);
     console.log('after--->', req.session.nonFriends);
     res.render('profiles/homepage', {
       user: req.session.user,
       users: req.session.nonFriends,
       pendingFriends: req.session.pendingFriends,
       pending: showPending,
+      nonFriends: showNonFriends,
+      areFriends: res.locals.areFriends,
       showProfile: true,
     });
   },
 
   showFriendPage(req, res) {
-    console.log('inside showfriendpage -->', req.params.id, res.locals.friends, res.locals.pending);
+    console.log('inside showfriendpage -->', req.params.id, res.locals.pending, res.locals.friends);
     res.render('profiles/friendPage', {
       user: req.params.id,
-      friends: res.locals.friends,
       pending: res.locals.pending,
+      friends: res.locals.friends,
     });
   },
 

@@ -36,10 +36,12 @@ app.use(function (req, res, next) {
   const msg = req.session.success;
   delete req.session.error;
   delete req.session.success;
+  delete req.session.alreadyFriends;
+  res.locals.message = ' ';
   res.locals.friends = false;
   res.locals.pending = false;
   res.locals.isLoggedIn = false;
-  res.locals.message = ' ';
+  res.locals.areFriends = false;
   if (err) res.locals.message = `<p class="msg error">${err}</p>`;
   if (msg) res.locals.message = `<p class="msg success">${msg}</p>`;
   next();

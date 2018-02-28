@@ -2,59 +2,65 @@ const users = require('../models/profileDB');
 
 module.exports = {
     areFriends(req, res, next) {
-      const areFriends = {'user_id': req.params.id, 'friend_id': req.session.user.username };
+      console.log('inside arefriends, user_id, friend_id---->', req.session.user, req.params.id);
+      const areFriends = {'user_id': req.session.user.username, 'friend_id': req.params.id };
       console.log('inside are friends ---->', areFriends);
       users.areFriends(areFriends)
       .then(friend => {
         res.locals.friends = true;
-        res.locals.pending = false;
+        res.locals.areFriends = true;
         console.log(`THEY'RE FRIENDS`);
         next();
       })
       .catch(err => {
         res.locals.friends = false;
-        res.locals.pending = false;
         console.log(`THEY AREN'T FRIENDS`);
         next();
       });
     },
 
     arePending(req, res, next) {
-      const pendingFriends = {'user_id': req.params.id, 'friend_id': req.session.user.username };
-      console.log('inside pending ---->', pendingFriends);
-      users.arePending(pendingFriends)
-      .then(friend => {
-        res.locals.friends = false;
-        res.locals.pending = true;
-        console.log(`THEY'RE PENDING`);
-        next();
-      })
-      .catch(err => {
-        res.locals.friends = false;
-        res.locals.pending = false;
-        console.log(`THEY AREN'T PENDING`);
-        next();
-      });
+      if (!req.session.alreadyFriends) {
+        const pendingFriends = {'user_id': req.session.user.username, 'friend_id': req.params.id };
+        console.log('inside pending ---->', pendingFriends);
+        users.arePending(pendingFriends)
+        .then(friend => {
+          res.locals.pending = true;
+          req.session.pendingFriends = friend;
+          console.log(`THEY'RE PENDING`);
+          next();
+        })
+        .catch(err => {
+          res.locals.pending = false;
+          console.log(`THEY AREN'T PENDING`);
+          next();
+        });
+      };
     },
 
     addFriend(req, res, next) {
-      const updateFriends = { 'user_id': req.params.id, 'friend_id': req.session.user.username, 'status': 3 };
-      console.log('inside addFriend');
-      users.addFriend(updateFriends)
-      .then(friend => {
-        console.log('setting friend status to 3');
-        req.session.pending = `Sending friend request to ${req.session.user.username}`;
-        res.locals.pending = true;
-        res.locals.friends = false;
+      console.log('WORKING IN ADDFRIEND');
+      if (!req.session.alreadyFriends) {
+        const updateFriends = { 'user_id': req.session.user.username, 'friend_id': req.params.id, 'status': 3 };
+        console.log('inside addFriend');
+        users.addPending(updateFriends)
+        .then(friend => {
+          console.log('setting friend status to 3');
+          req.session.pending = `Sending friend request to ${req.session.user.username}`;
+          res.locals.pending = true;
+          res.locals.friends = false;
+          next();
+        })
+        .catch(err => {
+          console.log('error in addfriend.....', err);
+          req.session.error = `You can't add this friend...sorry`;
+          res.locals.pending = false;
+          res.locals.friends = false;
+          next();
+        });
+      } else {
         next();
-      })
-      .catch(err => {
-        console.log('error in addfriend.....', err);
-        req.session.error = `You can't add this friend...sorry`;
-        res.locals.pending = false;
-        res.locals.friends = false;
-        next();
-      });
+      };
     },
 
     confirmFriend(req, res, next) {
@@ -82,6 +88,7 @@ module.exports = {
         next();
       })
       .catch(err => {
+        console.log('NO PENDING FRIENDS --------->', err);
         next();
       });
     },
@@ -103,13 +110,16 @@ module.exports = {
     },
 
     inFriends(req, res, next) {
-      const confirmFriend = { 'user_id': req.params.id, 'friend_id': req.session.user.username};
+      const confirmFriend = { 'user_id': req.session.user.username, 'friend_id': req.params.id };
+      console.log('inside infriends---->', confirmFriend);
       users.inFriendDatabase(confirmFriend)
       .then(friends => {
+        console.log('WORKING IN INFRIENDS');
         req.session.alreadyFriends = true;
         next();
       })
       .catch(err => {
+        console.log('NOT WORKING IN INFRIENDS');
         req.session.alreadyFriends = false;
         next();
       });

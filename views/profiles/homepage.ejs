@@ -2,7 +2,7 @@
 
 <h1>USER PAGE FOR <%=user.username%></h1>
 <%- message %>
-<% if (showNonFriends) { %>
+<% if (nonFriends) { %>
   <% include ../partials/otherUsers %>
 <% } %>
 <% if (pending) { %>
