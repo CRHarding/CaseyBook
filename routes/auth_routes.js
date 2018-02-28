@@ -7,10 +7,10 @@ const friendController = require('../controllers/friend_Controller');
 
 authRouter.route('/register')
   .get(viewsController.showRegister)
-  .post(authController.checkNewUser, profileController.save, profileController.getAllUsers, viewsController.showUser);
+  .post(authController.checkNewUser, profileController.save, profileController.getAllUsers, friendController.getNonFriends, viewsController.showUser);
 
 authRouter.route('/login')
-  .post(authController.authenticate, friendController.getNonFriends, friendController.getPendingFriends, viewsController.showUser);
+  .post(authController.authenticate, profileController.getAllUsers, friendController.getNonFriends, friendController.getPendingFriends, viewsController.showUser);
 
 authRouter.get('/logout', authController.logout);
 

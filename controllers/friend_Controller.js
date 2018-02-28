@@ -91,9 +91,26 @@ module.exports = {
       .then(nonFriends => {
         req.session.nonFriends = nonFriends;
         console.log('NON FRIENDS -------->', nonFriends);
+        if (nonFriends.length === 0) {
+          req.session.nonFriends = 'none';
+        }
+
         next();
       })
       .catch(err => {
+        next();
+      });
+    },
+
+    inFriends(req, res, next) {
+      const confirmFriend = { 'user_id': req.params.id, 'friend_id': req.session.user.username};
+      users.inFriendDatabase(confirmFriend)
+      .then(friends => {
+        req.session.alreadyFriends = true;
+        next();
+      })
+      .catch(err => {
+        req.session.alreadyFriends = false;
         next();
       });
     },

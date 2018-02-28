@@ -1,0 +1,4 @@
+<p>Pending Friends, click to confirm friendship!</p>
+<% for (let oneFriend of pendingFriends) { %>
+  <a href='/friend/confirmFriend/<%=oneFriend.friend_id%>'><%=oneFriend.friend_id%></a>
+<%}%>

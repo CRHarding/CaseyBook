@@ -9,7 +9,7 @@ module.exports = {
   },
 
   getUsers() {
-    return profileDB.many(`SELECT *
+    return profileDB.any(`SELECT *
                                             FROM users`);
   },
 
@@ -81,7 +81,18 @@ module.exports = {
                                         AND status = 3`, user);
   },
 
+  inFriendDatabase(friends) {
+    return profileDB.any(`SELECT user_id, friend_id
+                                        FROM friends
+                                        WHERE user_id = friends.user_id AND
+                                        friend_id = friends.friend_id OR
+                                        user_id = friends.friend_id AND
+                                        friend_id = friends.user_id
+                                        `,  friends);
+  },
+
   getNonFriends(user) {
+    console.log('inside getnonfriends ---->', user);
     return profileDB.any(`SELECT friend_id
                                         FROM friends
                                         WHERE user_id = $[username]

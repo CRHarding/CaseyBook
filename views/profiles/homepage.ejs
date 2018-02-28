@@ -3,23 +3,17 @@
 <h1>USER PAGE FOR <%=user.username%></h1>
 <%- message %>
 <% if (showNonFriends) { %>
-  <p>Other users (aka future friends!)</p>
-  <% for (let oneUser of users) { %>
-    <% if (oneUser.username != user.username) { %>
-      <a href='/profile/friend/<%=oneUser.username%>'><%=oneUser.username%></a>
-    <% } %>
-  <%}%>
+  <% include ../partials/otherUsers %>
 <% } %>
 <% if (pending) { %>
-  <p>Pending Friends, click to confirm friendship!</p>
-  <% for (let oneFriend of pendingFriends) { %>
-    <a href='/profile/confirmFriend/<%=oneFriend.friend_id%>'><%=oneFriend.friend_id%></a>
-  <%}%>
+  <% include ../partials/pendingFriends %>
 <% } %>
 <h4>Your information:</h4>
 <p>Your name: <%=user.lname%>, <%=user.fname%> <%=user.lname%></p>
 <p>Your username: <%=user.username%></p>
-<p>Your profile: <%=user.aboutme%></p>
+<% if (showProfile) { %>
+  <% include ../partials/profile %>
+<% } %>
 <form action='/profile/edit/<%=user.username%>' method='get'>
   <p>Edit your information</p><input type='submit' value='Edit'/>
 </form>

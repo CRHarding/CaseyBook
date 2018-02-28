@@ -24,25 +24,18 @@ friend other accounts, and delete their account.
 11. Express-Session
 
 #### Approach Taken
-I started by implementing a simple two database system. One for users, and one for the friendship
-connections between the users. Once I have those set and arranged I would like to move into
-hashing the passwords and adding a salt to make things secure. I would also like to give the users
-the option to write on their friends profile page / comment on their own. This would entail another
-database to handle the comments and threads.
+I started by implementing a simple two database system. One for users, and one for the friendship connections between the users. Once I have those set and arranged I would like to move into hashing the passwords and adding a salt to make things secure. I would also like to give the users the option to write on their friends profile page / comment on their own. This would entail another database to handle the comments and threads.
 
 #### How to Use
 # DO NOT USE A REAL PASSWORD. CURRENTLY NO PASSWORDS ARE HASHED AND SO ARE VISIBLE TO EVERYONE
-Beyond that, you start at the index page and either enter your name and password if you are a
-returning user or you click the register button where you are taken to a registration page to
-fill out the required information.
+Beyond that, you start at the index page and either enter your name and password if you are a returning user or you click the register button where you are taken to a registration page to fill out the required information.
 
 #### Unsolved problems
-1. Give users the ability to fill out a profile that others can see
-2. Give users the ability to write on their own wall
-3. Give users the ability to comment on others profiles
-4. Hash / salt passwords so that they are secure
-5. Set up a comments database that keeps track of who wrote what and where so that only the author of the comment can edit it
-6. General CSS / HTML beauty upgrades...
+1. Give users the ability to write on their own wall
+2. Give users the ability to comment on others profiles
+3. Hash / salt passwords so that they are secure
+4. Set up a comments database that keeps track of who wrote what and where so that only the author of the comment can edit it
+5. General CSS / HTML beauty upgrades...
 
 #### Links and Resources
 * https://www.facebook.com

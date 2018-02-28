@@ -15,6 +15,7 @@ module.exports = {
   getAllUsers(req, res, next) {
     users.getUsers()
     .then(users => {
+      console.log('inside getallusers ---->', users);
       req.session.users = users;
       next();
     })
