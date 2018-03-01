@@ -86,10 +86,4 @@ module.exports = {
                                         WHERE user_id = $[username]
                                         AND status = 4`, user);
   },
-
-  findFriendByUsername(friend) {
-    return friendDB.one(`SELECT *
-                                        FROM users
-                                        WHERE username = $1`, friend);
-  },
 };

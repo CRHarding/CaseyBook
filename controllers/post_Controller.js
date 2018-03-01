@@ -30,7 +30,7 @@ module.exports = {
   },
 
   getAllFriendPosts(req, res, next) {
-    posts.getFriendPosts(req.params.id)
+    posts.getAllFriendPosts(req.params.id)
     .then(posts => {
       res.locals.privateFriendPosts = posts;
       console.log('GETTING FRIEND POSTS WORKED ----->', posts);

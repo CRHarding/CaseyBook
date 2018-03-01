@@ -42,6 +42,16 @@ module.exports = {
 
   showFriendPage(req, res) {
     console.log('inside showfriendpage -->', res.locals.areFriends, res.locals.pending, res.locals.friends);
+    console.log(res.locals.privateFriendPosts);
+    console.log(res.locals.publicFriendPosts);
+    if (res.locals.areFriends) {
+      friendPosts = res.locals.privateFriendPosts;
+    } else {
+      friendPosts = res.locals.publicFriendPosts;
+    };
+
+    console.log('FRIEND POSTS ----->', friendPosts);
+
     res.render('profiles/friendPage', {
       friendUser: res.locals.friendUser,
       user: req.session.user,
@@ -49,16 +59,18 @@ module.exports = {
       friends: res.locals.friends,
       areFriends: res.locals.areFriends,
       isLoggedIn: req.session.isLoggedIn,
+      posts: friendPosts,
     });
   },
 
   showNewUser(req, res) {
-    res.render('profiles/index', {
+    res.render('profiles/homepage', {
       showProfile: true,
       user: req.session.user,
       pending: false,
       findPending: false,
       isLoggedIn: req.session.isLoggedIn,
+      posts: false,
     });
   },
 

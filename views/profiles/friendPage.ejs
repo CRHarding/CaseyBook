@@ -22,4 +22,11 @@
   <p><%=friendUser.aboutme%>
 <% } %>
 
+<% if (posts) { %>
+<div id = 'friendPosts'>
+  <% for (let onePost of posts) { %>
+    <p><%= onePost.content %></p>
+  <%}%>
+<% } %>
+
 <% include ../partials/footer %>

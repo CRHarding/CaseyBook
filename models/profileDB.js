@@ -38,4 +38,10 @@ module.exports = {
                                         FROM users
                                         WHERE username = $[username]`, user);
   },
+
+  findFriendByUsername(friend) {
+    return profileDB.one(`SELECT *
+                                        FROM users
+                                        WHERE username = $1`, friend);
+  },
 };

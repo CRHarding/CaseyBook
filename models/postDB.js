@@ -15,17 +15,20 @@ module.exports = {
                                     WHERE user_id = $1`, user);
   },
 
-  getPrivateFriendPosts(friend) {
+  getPublicFriendPosts(friend) {
+    console.log('GETPUBLICFRIENDPOSTS------>', friend);
     return postDB.any(`SELECT content
                                     FROM posts
                                     WHERE user_id = $1
-                                    AND rest = 3`, friend);
+                                    AND rest = 1`, friend);
   },
 
-  getPublicFriendPosts(friend) {
+  getAllFriendPosts(friend) {
+    console.log('GETALLFRIENDPOSTS------>', friend);
     return postDB.any(`SELECT content
                                     FROM posts
                                     WHERE user_id = $1
-                                    AND rest = 1`)
+                                    AND rest = 1
+                                    OR rest = 3`, friend);
   },
 };
