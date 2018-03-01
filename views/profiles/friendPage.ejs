@@ -1,12 +1,25 @@
 <% include ../partials/boilerplate %>
 
-<h1>USER PAGE FOR <%=user%></h1>
+<h1>USER PAGE FOR <%=user.fname%></h1>
 <%- message %>
-<p><%=user%>'s Profile: <%=user.aboutme%></p>
+
+<% if (!areFriends && !pending) { %>
+  <p>Friend them to find out more!</p>
+<% } %>
+
+<% if (pending) { %>
+  <p> Waiting on their friendship response...don't be discouraged...</p>
+<% } %>
+
 <% if (!pending && !friends && !areFriends) { %>
-  <form action='/friend/addFriend/<%=user%>' method='get'>
+  <form action='/friend/addFriend/<%=user.username%>' method='get'>
     <input type='submit' value="Add Friend!"/>
   </form>
+<% } %>
+
+<% if (areFriends) { %>
+  <h4><%=user.fname%>'s about me!</h4>
+  <p><%=user.aboutme%>
 <% } %>
 
 <% include ../partials/footer %>

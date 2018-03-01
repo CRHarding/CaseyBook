@@ -40,11 +40,12 @@ module.exports = {
   },
 
   showFriendPage(req, res) {
-    console.log('inside showfriendpage -->', req.params.id, res.locals.pending, res.locals.friends);
+    console.log('inside showfriendpage -->', res.locals.areFriends, res.locals.pending, res.locals.friends);
     res.render('profiles/friendPage', {
-      user: req.params.id,
+      user: res.locals.friendUser,
       pending: res.locals.pending,
       friends: res.locals.friends,
+      areFriends: res.locals.areFriends,
     });
   },
 

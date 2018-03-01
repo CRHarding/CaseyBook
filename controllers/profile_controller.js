@@ -74,22 +74,12 @@ module.exports = {
     });
   },
 
-  findByUsername(req, res, next) {
-    username = req.params.id;
-    users.findByUsername(username)
-    .then(foundUser => {
-      next();
-    })
-    .catch(err => {
-      next(err);
-    });
-  },
-
   findFriendByUsername(req, res, next) {
     console.log('inside findfriendbyusername: --->', req.params.id);
     username = req.params.id;
     users.findFriendByUsername(username)
     .then(foundFriend => {
+      res.locals.friendUser = foundFriend;
       next();
     })
     .catch(err => {

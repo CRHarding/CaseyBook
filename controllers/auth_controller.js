@@ -5,7 +5,7 @@ module.exports = {
   checkUser(req, res, next) {
     req.session.oldUser = req.body;
     if (req.body.username != req.session.user.username) {
-      users.findByUsername(req.body)
+      users.findFriendByUsername(req.body)
       .then(user => {
         req.session.error = 'That username already exists!';
         res.redirect('back');
@@ -20,7 +20,7 @@ module.exports = {
 
   checkNewUser(req, res, next) {
     req.session.oldUser = req.body;
-    users.findByUsername(req.body)
+    users.findByUfindFriendByUsernamesername(req.body)
     .then(user => {
       req.session.error = 'That username already exists!';
       res.redirect('back');
@@ -31,7 +31,8 @@ module.exports = {
   },
 
   getUserId(req, res, next) {
-    users.findByUsername(req.session.user)
+    console.log('inside getuserid ------>', req.session.user);
+    users.findUser(req.session.user)
     .then(user => {
       req.session.user = user;
       next();

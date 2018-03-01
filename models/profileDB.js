@@ -33,16 +33,16 @@ module.exports = {
                                         user);
   },
 
-  findByUsername(user) {
+  findFriendByUsername(friend) {
     return profileDB.one(`SELECT *
                                         FROM users
-                                        WHERE username = $1`, user.username);
+                                        WHERE username = $1`, friend);
   },
 
-  findFriendByUsername(user) {
+  findUser(user) {
     return profileDB.one(`SELECT *
                                         FROM users
-                                        WHERE username = $1`, user);
+                                        WHERE username = $[username]`, user);
   },
 
   areFriends(friends) {
@@ -64,6 +64,10 @@ module.exports = {
                                         FROM friends
                                         WHERE user_id = $[user_id] AND
                                         friend_id = $[friend_id] AND
+                                        status = 3
+                                        OR
+                                        user_id = $[friend_id] AND
+                                        friend_id = $[user_id] AND
                                         status = 3
                                         `, friends);
   },

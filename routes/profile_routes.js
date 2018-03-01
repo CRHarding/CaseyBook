@@ -25,7 +25,7 @@ profileRouter.route('/logout')
   .get(authController.logout);
 
 profileRouter.route('/:id')
-  .get(profileController.findByUsername, viewsController.showUser);
+  .get(profileController.findFriendByUsername, viewsController.showUser);
 
 module.exports = profileRouter;
 

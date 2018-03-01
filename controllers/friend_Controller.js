@@ -14,6 +14,7 @@ module.exports = {
       })
       .catch(err => {
         res.locals.friends = false;
+        res.locals.areFriends = false;
         console.log(`THEY AREN'T FRIENDS`);
         next();
       });
@@ -70,7 +71,7 @@ module.exports = {
         req.session.success = `Friend added!`;
         res.locals.pending = false;
         res.locals.friends = true;
-        next();
+        res.redirect('back');
       })
       .catch(err => {
         req.session.error = `You can't confirm this friend...sorry`;
