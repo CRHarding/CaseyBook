@@ -1,3 +1,5 @@
+const users = require('../models/profileDB');
+
 module.exports = {
   showUser(req, res) {
     console.log('inside show user pending friends ----->', req.session.pendingFriends, req.session.pendingFriends);
@@ -21,13 +23,7 @@ module.exports = {
       }
     }
 
-    console.log('before---> ', req.session.nonFriends);
-    if (req.session.nonFriends === 'none') {
-      req.session.nonFriends = req.session.users;
-    };
-
-    console.log('pendingFriends, pending, nonFriends', req.session.pendingFriends, showPending, showNonFriends);
-    console.log('after--->', req.session.nonFriends);
+    console.log('findpendingfriends, pendingFriends, pending, nonFriends', req.session.findPendingFriends, req.session.pendingFriends, showPending, showNonFriends);
     res.render('profiles/homepage', {
       user: req.session.user,
       users: req.session.nonFriends,
@@ -36,16 +32,31 @@ module.exports = {
       nonFriends: showNonFriends,
       areFriends: res.locals.areFriends,
       showProfile: true,
+      findPending: req.session.findPending,
+      findPendingFriends: req.session.findPendingFriends,
+      isLoggedIn: req.session.isLoggedIn,
     });
   },
 
   showFriendPage(req, res) {
     console.log('inside showfriendpage -->', res.locals.areFriends, res.locals.pending, res.locals.friends);
     res.render('profiles/friendPage', {
-      user: res.locals.friendUser,
+      friendUser: res.locals.friendUser,
+      user: req.session.user,
       pending: res.locals.pending,
       friends: res.locals.friends,
       areFriends: res.locals.areFriends,
+      isLoggedIn: req.session.isLoggedIn,
+    });
+  },
+
+  showNewUser(req, res) {
+    res.render('profiles/homepage', {
+      showProfile: true,
+      user: req.session.user,
+      pending: false,
+      findPending: false,
+      isLoggedIn: req.session.isLoggedIn,
     });
   },
 
@@ -56,6 +67,7 @@ module.exports = {
   showEdit(req, res) {
     res.render('profiles/edit', {
       user: req.session.user,
+      isLoggedIn: req.session.isLoggedIn,
     });
   },
 
@@ -71,6 +83,8 @@ module.exports = {
     console.log(req.session.isLoggedIn);
     res.render('index', {
       isLoggedIn: req.session.isLoggedIn,
+      users: req.session.users,
+      user: req.session.user,
     });
   },
 };

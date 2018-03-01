@@ -1,6 +1,6 @@
 <% include ../partials/boilerplate %>
 
-<h1>USER PAGE FOR <%=user.fname%></h1>
+<h1>USER PAGE FOR <%=friendUser.fname%></h1>
 <%- message %>
 
 <% if (!areFriends && !pending) { %>
@@ -12,14 +12,14 @@
 <% } %>
 
 <% if (!pending && !friends && !areFriends) { %>
-  <form action='/friend/addFriend/<%=user.username%>' method='get'>
+  <form action='/friend/addFriend/<%=friendUser.username%>' method='get'>
     <input type='submit' value="Add Friend!"/>
   </form>
 <% } %>
 
 <% if (areFriends) { %>
-  <h4><%=user.fname%>'s about me!</h4>
-  <p><%=user.aboutme%>
+  <h4><%=friendUser.fname%>'s about me!</h4>
+  <p><%=friendUser.aboutme%>
 <% } %>
 
 <% include ../partials/footer %>

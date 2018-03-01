@@ -5,6 +5,7 @@ module.exports = {
     users.find(req.params.username)
     .then(result => {
       res.locals.user = user;
+      req.session.user = user;
       next();
     })
     .catch(err => {

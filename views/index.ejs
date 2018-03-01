@@ -3,6 +3,11 @@
   <h1>Welcome to Casey Book!</h1>
   <h2>It's like Facebook, only made by some guy named 'Casey'</h2>
   <%- message %>
+
+  <% if (isLoggedIn) { %>
+    <% include ./partials/otherUsers %>
+  <% } %>
+
   <% if (!isLoggedIn) { %>
     <form action='/authenticate/login' method = 'post'>
       <input name='username' type='text' placeholder = 'Name'/>

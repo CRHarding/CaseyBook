@@ -2,7 +2,7 @@ const users = require('../models/profileDB');
 
 module.exports = {
     areFriends(req, res, next) {
-      console.log('inside arefriends, user_id, friend_id---->', req.session.user, req.params.id);
+      console.log('inside arefriends, user_id, friend_id---->', req.session.user.fname, req.params.id);
       const areFriends = {'user_id': req.session.user.username, 'friend_id': req.params.id };
       console.log('inside are friends ---->', areFriends);
       users.areFriends(areFriends)
@@ -15,7 +15,7 @@ module.exports = {
       .catch(err => {
         res.locals.friends = false;
         res.locals.areFriends = false;
-        console.log(`THEY AREN'T FRIENDS`);
+        console.log(`THEY AREN'T FRIENDS`, err);
         next();
       });
     },
@@ -42,9 +42,9 @@ module.exports = {
     addFriend(req, res, next) {
       console.log('WORKING IN ADDFRIEND');
       if (!req.session.alreadyFriends) {
-        const updateFriends = { 'user_id': req.session.user.username, 'friend_id': req.params.id, 'status': 3 };
+        const updateFriendRequest = { 'user_id': req.session.user.username, 'friend_id': req.params.id, 'status': 3 };
         console.log('inside addFriend');
-        users.addPending(updateFriends)
+        users.addPending(updateFriendRequest)
         .then(friend => {
           console.log('setting friend status to 3');
           req.session.pending = `Sending friend request to ${req.session.user.username}`;
@@ -82,7 +82,7 @@ module.exports = {
     },
 
     getPendingFriends(req, res, next) {
-      users.getPendingFriends(req.session.user)
+      users.getPendingFriends(req.session.user.username)
       .then(friends => {
         req.session.pendingFriends = friends;
         console.log('PENDING FRIENDS ------->', friends);
@@ -90,6 +90,22 @@ module.exports = {
       })
       .catch(err => {
         console.log('NO PENDING FRIENDS --------->', err);
+        next();
+      });
+    },
+
+    findPending(req, res, next) {
+      console.log('inside findpending ---->', req.session.user.username);
+      users.findPending(req.session.user.username)
+      .then(friends => {
+        req.session.findPending = true;
+        req.session.findPendingFriends = friends;
+        console.log(`PENDING FRIENDS ------>`, friends);
+        next();
+      })
+      .catch(err => {
+        res.locals.findPending = false;
+        console.log(`THEY AREN'T PENDING`, err);
         next();
       });
     },

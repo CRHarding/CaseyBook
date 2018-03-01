@@ -8,10 +8,10 @@ const friendController = require('../controllers/friend_Controller');
 profileRouter.use(authController.isLoggedIn);
 
 profileRouter.route('/')
-  .get(viewsController.showHome);
+  .get(profileController.getAllUsers, viewsController.showHome);
 
 profileRouter.route('/myProfile')
-  .get(friendController.getPendingFriends, friendController.getNonFriends, viewsController.showUser);
+  .get(friendController.getPendingFriends, friendController.getNonFriends, friendController.findPending, viewsController.showUser);
 
 profileRouter.route('/delete')
     .get(viewsController.showDelete)

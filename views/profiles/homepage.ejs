@@ -2,12 +2,17 @@
 
 <h1>USER PAGE FOR <%=user.username%></h1>
 <%- message %>
-<% if (nonFriends) { %>
-  <% include ../partials/otherUsers %>
-<% } %>
+
 <% if (pending) { %>
-  <% include ../partials/pendingFriends %>
+  <div class='pendingFriends'>
+    <% include ../partials/pendingFriends %>
+  </div>
 <% } %>
+
+<% if (findPending) { %>
+
+<% } %>
+
 <h4>Your information:</h4>
 <p>Your name: <%=user.lname%>, <%=user.fname%> <%=user.lname%></p>
 <p>Your username: <%=user.username%></p>

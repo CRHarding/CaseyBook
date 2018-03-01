@@ -20,7 +20,7 @@ module.exports = {
 
   checkNewUser(req, res, next) {
     req.session.oldUser = req.body;
-    users.findByUfindFriendByUsernamesername(req.body)
+    users.findFriendByUsername(req.body)
     .then(user => {
       req.session.error = 'That username already exists!';
       res.redirect('back');

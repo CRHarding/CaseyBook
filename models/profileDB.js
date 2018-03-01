@@ -90,12 +90,23 @@ module.exports = {
                                         VALUES ($[username], $[password]) RETURNING *`, user);
   },
 
-  getPendingFriends(user) {
-    console.log('inside getpendingfriends with user----->', user.username);
-    return profileDB.any(`SELECT user_id
+  findPending(user) {
+    console.log('inside db findpending', user);
+    return profileDB.any(`SELECT user_id, friend_id
                                         FROM friends
-                                        WHERE friend_id = $[username]
-                                        AND status = 3
+                                        WHERE friend_id = $1 AND
+                                        status = 3`, user);
+  },
+
+  getPendingFriends(user) {
+    console.log('inside getpendingfriends with user----->', user);
+    return profileDB.any(`SELECT user_id, friend_id
+                                        FROM friends
+                                        WHERE friend_id = $1 AND
+                                        status = 3
+                                        OR
+                                        user_id = $1 AND
+                                        status = 3
                                         `, user);
   },
 
