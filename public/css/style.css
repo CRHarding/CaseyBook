@@ -50,11 +50,16 @@ a.button{
   padding: 5px;
 }
 
-#aboutme {
-  width: 50%;
+.text-box {
+  width: 1000em;
+  height: 1000em;
 }
 
 #logout {
+  float: right;
+}
+
+#delete {
   float: right;
 }
 

@@ -1,5 +1,11 @@
 <footer>
-  Made by CR Harding
+  <%if (isLoggedIn) {%>
+    <form action='/profile/delete' method='get' id='delete'>
+      <input type='submit' value='Delete Account'/>
+    </form>
+  <% } %>
+</br>
+  <p>Made by CR Harding</p>
 </footer>
 </body>
 </html>

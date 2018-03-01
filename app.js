@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 3000;
 const profilesRouter = require('./routes/profile_routes');
 const authRouter = require('./routes/auth_routes');
 const friendRouter = require('./routes/friend_routes');
+const postRouter = require('./routes/post_routes');
 
 const app = express();
 app.use(logger('dev'));
@@ -50,6 +51,7 @@ app.use(function (req, res, next) {
 app.use('/profile', profilesRouter);
 app.use('/authenticate', authRouter);
 app.use('/friend', friendRouter);
+app.use('/post', postRouter);
 
 app.get('/*', (req, res) => {
   res.render('index');

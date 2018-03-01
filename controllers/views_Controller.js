@@ -23,6 +23,7 @@ module.exports = {
       }
     }
 
+    console.log(res.locals.posts);
     console.log('findpendingfriends, pendingFriends, pending, nonFriends', req.session.findPendingFriends, req.session.pendingFriends, showPending, showNonFriends);
     res.render('profiles/homepage', {
       user: req.session.user,
@@ -35,6 +36,7 @@ module.exports = {
       findPending: req.session.findPending,
       findPendingFriends: req.session.findPendingFriends,
       isLoggedIn: req.session.isLoggedIn,
+      posts: res.locals.posts,
     });
   },
 
@@ -51,7 +53,7 @@ module.exports = {
   },
 
   showNewUser(req, res) {
-    res.render('profiles/homepage', {
+    res.render('profiles/index', {
       showProfile: true,
       user: req.session.user,
       pending: false,

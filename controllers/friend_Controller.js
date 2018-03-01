@@ -1,4 +1,4 @@
-const users = require('../models/profileDB');
+const users = require('../models/friendDB');
 
 module.exports = {
     areFriends(req, res, next) {

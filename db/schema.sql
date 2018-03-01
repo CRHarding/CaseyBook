@@ -2,6 +2,7 @@
 
 DROP TABLE IF EXISTS users cascade;
 DROP TABLE IF EXISTS friends;
+DROP TABLE IF EXISTS posts;
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
@@ -9,14 +10,24 @@ CREATE TABLE users (
   lname VARCHAR(255),
   username VARCHAR(255) UNIQUE,
   password VARCHAR(255),
-  aboutme VARCHAR(255)
+  aboutme VARCHAR(255),
+  dateCreated TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE friends (
   id SERIAL PRIMARY KEY,
   user_id VARCHAR(255) REFERENCES users(username) ON UPDATE CASCADE ON DELETE CASCADE NOT NULL,
   friend_id VARCHAR(255) REFERENCES users(username) ON UPDATE CASCADE ON DELETE CASCADE NOT NULL,
-  status integer default 4
+  status integer default 4,
+  dateFriended TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE posts (
+  id SERIAL PRIMARY KEY,
+  user_id VARCHAR(255) REFERENCES users(username) ON UPDATE CASCADE ON DELETE CASCADE NOT NULL,
+  content VARCHAR(750),
+  rest integer default 1,
+  datePosted TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
 CREATE INDEX ON users (username);

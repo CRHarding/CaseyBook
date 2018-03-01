@@ -9,18 +9,28 @@
   </div>
 <% } %>
 
-<% if (findPending) { %>
-
-<% } %>
+<h3>Post on your wall?</h3>
+<form action='/post' method='post'>
+  <label>
+    <textarea name="content" class="textBox" placeholder="Write something!"></textarea>
+  </label>
+  <button type='submit'>Post'</button>
+</form>
 
 <h4>Your information:</h4>
 <p>Your name: <%=user.lname%>, <%=user.fname%> <%=user.lname%></p>
 <p>Your username: <%=user.username%></p>
 <% include ../partials/profile %>
+
 <form action='/profile/edit/<%=user.username%>' method='get'>
-  <p>Edit your information</p><input type='submit' value='Edit'/>
+  <input type='submit' value='Edit Profile'/>
 </form>
-<form action='/profile/delete' method='get'>
-  <p>Delete your account? Are you sure?...ok, then, click here!</p><input type='submit' value='Delete'/>
-</form>
+
+<% if (posts) { %>
+<div id = 'yourPosts'>
+  <% for (let onePost of posts) { %>
+    <p><%= onePost.content %></a>
+  <%}%>
+<% } %>
+
 <% include ../partials/footer %>

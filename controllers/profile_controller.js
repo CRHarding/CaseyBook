@@ -24,17 +24,6 @@ module.exports = {
     });
   },
 
-  createUser(req, res, next) {
-    users.save(req.params.username, req.params.pass)
-    .then(result => {
-      res.locals.user = user;
-      next();
-    })
-    .catch(err => {
-      next(err);
-    });
-  },
-
   updateUser(req, res, next) {
     req.session.oldUser.id = req.session.user.id;
     console.log('inside update user oldUser, user-->', req.session.oldUser, req.session.user);
