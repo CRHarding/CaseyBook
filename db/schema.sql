@@ -1,8 +1,8 @@
 -- \c users_db;
 
 DROP TABLE IF EXISTS users cascade;
-DROP TABLE IF EXISTS friends;
-DROP TABLE IF EXISTS posts;
+DROP TABLE IF EXISTS friends cascade;
+DROP TABLE IF EXISTS posts cascade;
 DROP TABLE IF EXISTS likes;
 
 CREATE TABLE users (
@@ -25,7 +25,7 @@ CREATE TABLE friends (
 
 CREATE TABLE posts (
   id SERIAL PRIMARY KEY,
-  user_id VARCHAR(255) REFERENCES users(username) ON UPDATE CASCADE ON DELETE CASCADE NOT NULL,
+  user_id VARCHAR(255) REFERENCES users(username),
   content VARCHAR(750),
   rest integer default 1,
   datePosted TIMESTAMP NOT NULL DEFAULT NOW()
@@ -33,7 +33,8 @@ CREATE TABLE posts (
 
 CREATE TABLE likes (
   id SERIAL PRIMARY KEY,
-  user_id VARCHAR(255) REFERENCES users(username) ON UPDATE CASCADE ON DELETE CASCADE NOT NULL,
+  user_id VARCHAR(255) REFERENCES users(username),
+  post_id integer REFERENCES posts(id),
   datePosted TIMESTAMP NOT NULL DEFAULT NOW()
 );
 

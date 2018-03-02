@@ -2,9 +2,9 @@ const likeDB = require('../config/connection');
 
 module.exports = {
   updateLike(updatePost) {
-    console.log('inside addpost ---->', updatePost);
+    console.log('inside addlike---->', updatePost);
     return likeDB.one(`INSERT INTO likes(user_id, post_id)
-                                    VALUES($[username], $[post])
+                                    VALUES($[user], $[post])
                                     RETURNING *`, updatePost);
   },
 
