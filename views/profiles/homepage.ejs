@@ -14,7 +14,7 @@
   <label>
     <textarea name="content" class="textBox" placeholder="Write something!"></textarea>
   </label>
-  <button type='submit'>Post'</button>
+  <button type='submit'>Post</button>
 </form>
 
 <h4>Your information:</h4>
@@ -27,10 +27,13 @@
 </form>
 
 <% if (posts) { %>
-<div id = 'yourPosts'>
+<div class = 'yourPosts'>
   <% for (let onePost of posts) { %>
-    <p><%= onePost.content %></p>
+    <div id='onePost'>
+        <%= onePost.content %></br>
+      </div>
   <%}%>
+</div>
 <% } %>
 
 <% include ../partials/footer %>

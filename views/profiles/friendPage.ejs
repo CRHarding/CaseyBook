@@ -25,8 +25,12 @@
 <% if (posts) { %>
 <div id = 'friendPosts'>
   <% for (let onePost of posts) { %>
-    <p><%= onePost.content %></p>
+    <div id='onePost'>
+      <p><%= onePost.content %></p>
+    </div>
+    <p id='like'>Like</like>
   <%}%>
+</div>
 <% } %>
 
 <% include ../partials/footer %>
