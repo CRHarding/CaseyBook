@@ -1,4 +1,4 @@
-\c users_db;
+-- \c users_db;
 
 DROP TABLE IF EXISTS users cascade;
 DROP TABLE IF EXISTS friends;

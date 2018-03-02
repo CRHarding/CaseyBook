@@ -1,4 +1,4 @@
-\c users_db;
+-- \c users_db;
 
 INSERT INTO users (fname, lname, username, password, aboutme) VALUES
   (
