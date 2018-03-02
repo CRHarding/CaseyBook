@@ -1,11 +1,11 @@
 const express = require('express');
 const friendRouter = express.Router();
-const profileController = require('../controllers/profile_Controller');
-const viewsController = require('../controllers/views_Controller');
-const authController = require('../controllers/auth_Controller');
-const friendController = require('../controllers/friend_Controller');
-const postController = require('../controllers/post_Controller');
-const likeController = require('../controllers/like_Controller');
+const profileController = require('../controllers/profileController');
+const viewsController = require('../controllers/viewsController');
+const authController = require('../controllers/authController');
+const friendController = require('../controllers/friendController');
+const postController = require('../controllers/postController');
+const likeController = require('../controllers/likeController');
 
 friendRouter.use(authController.isLoggedIn);
 

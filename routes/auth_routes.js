@@ -1,10 +1,10 @@
 const express = require('express');
 const authRouter = express.Router();
-const viewsController = require('../controllers/views_Controller');
-const authController = require('../controllers/auth_Controller');
-const profileController = require('../controllers/profile_Controller');
-const friendController = require('../controllers/friend_Controller');
-const postController = require('../controllers/post_Controller');
+const viewsController = require('../controllers/viewsController');
+const authController = require('../controllers/authController');
+const profileController = require('../controllers/profileController');
+const friendController = require('../controllers/friendController');
+const postController = require('../controllers/postController');
 
 authRouter.route('/register')
   .get(viewsController.showRegister)
