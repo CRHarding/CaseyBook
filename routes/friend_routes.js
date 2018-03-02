@@ -5,6 +5,7 @@ const viewsController = require('../controllers/views_Controller');
 const authController = require('../controllers/auth_Controller');
 const friendController = require('../controllers/friend_Controller');
 const postController = require('../controllers/post_Controller');
+const likeController = require('../controllers/like_Controller');
 
 friendRouter.use(authController.isLoggedIn);
 
@@ -16,5 +17,8 @@ friendRouter.route('/addFriend/:id')
 
 friendRouter.route('/confirmFriend/:id')
   .get(profileController.findFriendByUsername, friendController.inFriends, friendController.confirmFriend, friendController.areFriends, postController.getAllFriendPosts, postController.getPublicFriendPosts, viewsController.showFriendPage);
+
+friendRouter.route('/addLike/:id')
+  .post(likeController.updateLike, viewsController.showBack);
 
 module.exports = friendRouter;

@@ -10,14 +10,14 @@ module.exports = {
   },
 
   getYourPosts(user) {
-    return postDB.any(`SELECT content
+    return postDB.any(`SELECT content, id
                                     FROM posts
                                     WHERE user_id = $1`, user);
   },
 
   getPublicFriendPosts(friend) {
     console.log('GETPUBLICFRIENDPOSTS------>', friend);
-    return postDB.any(`SELECT content
+    return postDB.any(`SELECT content, id
                                     FROM posts
                                     WHERE user_id = $1
                                     AND rest = 1`, friend);
@@ -25,7 +25,7 @@ module.exports = {
 
   getAllFriendPosts(friend) {
     console.log('GETALLFRIENDPOSTS------>', friend);
-    return postDB.any(`SELECT content
+    return postDB.any(`SELECT content, id
                                     FROM posts
                                     WHERE user_id = $1
                                     AND rest = 1

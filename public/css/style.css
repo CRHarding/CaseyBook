@@ -74,8 +74,8 @@ a.button{
   background: #dfe3ee;
 }
 
-#like {
-  clear: both;
+#likeButton {
+  float: left;
 }
 
 footer {

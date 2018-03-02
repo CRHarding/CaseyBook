@@ -93,6 +93,10 @@ module.exports = {
     res.render('delete');
   },
 
+  showBack(req, res) {
+    res.redirect('back');
+  },
+
   showHome(req, res) {
     console.log(req.session.isLoggedIn);
     res.render('index', {

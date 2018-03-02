@@ -28,7 +28,11 @@
     <div id='onePost'>
       <p><%= onePost.content %></p>
     </div>
-    <p id='like'>Like</like>
+    <div id='likeButton'>
+      <form action='/friend/addLike/<%=onePost.id%>' method='post'>
+        <input type='submit' value='Like'/>
+      </form>
+    </div>
   <%}%>
 </div>
 <% } %>

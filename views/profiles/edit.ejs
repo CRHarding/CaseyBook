@@ -14,6 +14,21 @@
     <p>Profile:</p>
     <textarea name="aboutme" class="textBox"><%=user.aboutme%></textarea>
   </label>
-  <% include ../partials/userAuth.ejs %>
+  <label>
+    <p>Username:</p>
+    <input type="text" name="username" value="<%=user.username%>"/>
+  </label>
+  <label>
+    <p>Password:</p>
+    <input type="password" name="password"value="<%=user.password%>"/>
+
+  </label>
+
+  <label>
+    <p>Repeat Password:</p>
+    <input type="password" name="repeatPassword"value="<%=user.password%>"/>
+  </label>
+
+  <button type="submit">Submit</button>
 </form>
 <% include ../partials/footer.ejs %>
