@@ -31,7 +31,6 @@ module.exports = {
   },
 
   getUserId(req, res, next) {
-    console.log('inside getuserid ------>', req.session.user);
     users.findUser(req.session.user)
     .then(user => {
       req.session.user = user;

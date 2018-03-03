@@ -22,19 +22,34 @@
   <p><%=friendUser.aboutme%>
 <% } %>
 
-<% if (posts) { %>
-<div id = 'friendPosts'>
-  <% for (let onePost of posts) { %>
-    <div id='onePost'>
-      <p><%= onePost.content %></p>
+<% if (friendPosts) { %>
+  <div id = 'friendPosts'>
+      <% for (let onePost of friendPosts) { %>
+        <% if (onePost.rest === 1 || areFriends) { %>
+          <div id='author'>
+            <p><%=onePost.author %>
+          </div>
+          <div id='onePost'>
+            <p><%= onePost.content %></p>
+          </div>
+
+          <div id='like'>
+            <%= onePost.likes %>
+          </div>
+          <div id='likeButton'>
+            <% if (!alreadyLikes) {%>
+              <form action='/friend/addLike/<%=onePost.post_id%>' method='post'>
+                <input type='submit' value='Like'/>
+              </form>
+            <% } else { %>
+              <form action='/friend/removeLike/<%=onePost.post_id%>' method='post'>
+                <input type='submit' value='Like'/>
+              </form>
+            <% } %>
+          </div>
+      <%}%>
     </div>
-    <div id='likeButton'>
-      <form action='/friend/addLike/<%=onePost.id%>' method='post'>
-        <input type='submit' value='Like'/>
-      </form>
-    </div>
-  <%}%>
-</div>
+  <% } %>
 <% } %>
 
 <% include ../partials/footer %>

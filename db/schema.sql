@@ -33,8 +33,9 @@ CREATE TABLE posts (
 
 CREATE TABLE likes (
   id SERIAL PRIMARY KEY,
-  user_id VARCHAR(255) REFERENCES users(username),
   post_id integer REFERENCES posts(id),
+  post_writer VARCHAR(255) REFERENCES users(username),
+  friend_id VARCHAR(255) REFERENCES users(username),
   datePosted TIMESTAMP NOT NULL DEFAULT NOW()
 );
 

@@ -5,13 +5,19 @@ const authController = require('../controllers/authController');
 const profileController = require('../controllers/profileController');
 const friendController = require('../controllers/friendController');
 const postController = require('../controllers/postController');
+const likeController = require('../controllers/likeController');
 
 authRouter.route('/register')
   .get(viewsController.showRegister)
-  .post(authController.checkNewUser, profileController.save, profileController.getAllUsers, friendController.getNonFriends, viewsController.showNewUser);
+  .post(authController.checkNewUser, profileController.save,
+            profileController.getAllUsers, friendController.getNonFriends,
+              viewsController.showNewUser);
 
 authRouter.route('/login')
-  .post(authController.authenticate, profileController.getAllUsers, friendController.getNonFriends, friendController.getPendingFriends, friendController.findPending, postController.getYourPosts, viewsController.showUser);
+  .post(authController.authenticate, profileController.getAllUsers,
+            friendController.getNonFriends, friendController.getPendingFriends,
+              friendController.findPending, postController.getYourPosts, likeController.getLikes,
+                    viewsController.showUser);
 
 authRouter.get('/logout', authController.logout);
 

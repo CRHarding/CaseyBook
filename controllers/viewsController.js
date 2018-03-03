@@ -2,9 +2,6 @@ const users = require('../models/profileDB');
 
 module.exports = {
   showUser(req, res) {
-    console.log('inside show user pending friends ----->', req.session.pendingFriends, req.session.pendingFriends);
-    console.log('inside show users nonfriends ---->', req.session.nonFriends);
-
     if (req.session.pendingFriends) {
       if (req.session.pendingFriends.length > 0) {
         showPending = true;
@@ -23,8 +20,29 @@ module.exports = {
       }
     }
 
+    if (res.locals.totalLikes) {
+      totalLikes = res.locals.totalLikes;
+    } else {
+      totalLikes = false;
+    }
+
+    let posts = [];
     console.log(res.locals.posts);
-    console.log('findpendingfriends, pendingFriends, pending, nonFriends', req.session.findPendingFriends, req.session.pendingFriends, showPending, showNonFriends);
+    if (res.locals.posts) {
+      res.locals.posts.forEach(function (post) {
+        if (totalLikes) {
+          postLikes = totalLikes.filter(totalLikes => (totalLikes.post_id === post.post_id));
+          posts.push({ 'author': post.user_id, 'content': post.content, 'likes': postLikes, 'post_id': post.id });
+        } else {
+          posts = res.locals.posts;
+        }
+      });
+    } else {
+      posts = false;
+    }
+
+    console.log(posts);
+    console.log('TOTAL LIKES----->', totalLikes);
     res.render('profiles/homepage', {
       user: req.session.user,
       users: req.session.nonFriends,
@@ -36,22 +54,41 @@ module.exports = {
       findPending: req.session.findPending,
       findPendingFriends: req.session.findPendingFriends,
       isLoggedIn: req.session.isLoggedIn,
-      posts: res.locals.posts,
+      userPosts: posts,
     });
   },
 
   showFriendPage(req, res) {
-    console.log('inside showfriendpage -->', res.locals.areFriends, res.locals.pending, res.locals.friends);
-    console.log(res.locals.privateFriendPosts);
-    console.log(res.locals.publicFriendPosts);
     if (res.locals.areFriends) {
       friendPosts = res.locals.privateFriendPosts;
     } else {
       friendPosts = res.locals.publicFriendPosts;
-    };
+    }
 
-    console.log('FRIEND POSTS ----->', friendPosts);
+    if (res.locals.totalLikes) {
+      totalLikes = res.locals.totalLikes;
+    } else {
+      totalLikes = false;
+    }
 
+    let posts = [];
+    if (friendPosts) {
+      friendPosts.forEach(function (post) {
+        console.log('post----->', post);
+        if (totalLikes) {
+          console.log('TOTAL LIKES', totalLikes);
+          console.log('TOTALLIKES.ID / POST.ID', totalLikes[0].id, post.id);
+          postLikes = totalLikes.filter(totalLikes => (totalLikes.id === post.id));
+          posts.push({ 'author': post.user_id, 'content': post.content, 'likes': postLikes[0].count, 'post_id': post.id });
+        } else {
+          posts = friendPosts;
+        }
+      });
+    } else {
+      posts = false;
+    }
+
+    console.log(posts);
     res.render('profiles/friendPage', {
       friendUser: res.locals.friendUser,
       user: req.session.user,
@@ -59,7 +96,8 @@ module.exports = {
       friends: res.locals.friends,
       areFriends: res.locals.areFriends,
       isLoggedIn: req.session.isLoggedIn,
-      posts: friendPosts,
+      friendPosts: posts,
+      alreadyLikes: res.locals.alreadyLikes,
     });
   },
 
@@ -70,7 +108,7 @@ module.exports = {
       pending: false,
       findPending: false,
       isLoggedIn: req.session.isLoggedIn,
-      posts: false,
+      userPosts: false,
     });
   },
 

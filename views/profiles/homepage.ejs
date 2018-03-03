@@ -26,12 +26,20 @@
   <input type='submit' value='Edit Profile'/>
 </form>
 
-<% if (posts) { %>
+<% if (userPosts) { %>
 <div class = 'yourPosts'>
-  <% for (let onePost of posts) { %>
+  <% for (let onePost of userPosts) { %>
+    <div id='author'>
+      <%= onePost.author %>
+    </div>
     <div id='onePost'>
-        <%= onePost.content %></br>
+      <%= onePost.content %></br>
+    </div>
+    <% if (onePost.likes) { %>
+      <div id='like'>
+        <%= onePost.likes %>
       </div>
+    <% } %>
   <%}%>
 </div>
 <% } %>

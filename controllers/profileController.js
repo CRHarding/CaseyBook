@@ -26,7 +26,6 @@ module.exports = {
 
   updateUser(req, res, next) {
     req.session.oldUser.id = req.session.user.id;
-    console.log('inside update user oldUser, user-->', req.session.oldUser, req.session.user);
     users.update(req.session.oldUser)
     .then(newUser => {
       res.locals.user = newUser;
@@ -65,7 +64,6 @@ module.exports = {
   },
 
   findFriendByUsername(req, res, next) {
-    console.log('inside findfriendbyusername: --->', req.params.id);
     username = req.params.id;
     users.findFriendByUsername(username)
     .then(foundFriend => {

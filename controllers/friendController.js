@@ -2,9 +2,7 @@ const users = require('../models/friendDB');
 
 module.exports = {
     areFriends(req, res, next) {
-      console.log('inside arefriends, user_id, friend_id---->', req.session.user.fname, req.params.id);
       const areFriends = {'user_id': req.session.user.username, 'friend_id': req.params.id };
-      console.log('inside are friends ---->', areFriends);
       users.areFriends(areFriends)
       .then(friend => {
         res.locals.friends = true;
@@ -23,7 +21,6 @@ module.exports = {
     arePending(req, res, next) {
       if (!req.session.alreadyFriends) {
         const pendingFriends = {'user_id': req.session.user.username, 'friend_id': req.params.id };
-        console.log('inside pending ---->', pendingFriends);
         users.arePending(pendingFriends)
         .then(friend => {
           res.locals.pending = true;
@@ -40,20 +37,16 @@ module.exports = {
     },
 
     addFriend(req, res, next) {
-      console.log('WORKING IN ADDFRIEND');
       if (!req.session.alreadyFriends) {
         const updateFriendRequest = { 'user_id': req.session.user.username, 'friend_id': req.params.id, 'status': 3 };
-        console.log('inside addFriend');
         users.addPending(updateFriendRequest)
         .then(friend => {
-          console.log('setting friend status to 3');
           req.session.pending = `Sending friend request to ${req.session.user.username}`;
           res.locals.pending = true;
           res.locals.friends = false;
           next();
         })
         .catch(err => {
-          console.log('error in addfriend.....', err);
           req.session.error = `You can't add this friend...sorry`;
           res.locals.pending = false;
           res.locals.friends = false;
@@ -85,27 +78,22 @@ module.exports = {
       users.getPendingFriends(req.session.user.username)
       .then(friends => {
         req.session.pendingFriends = friends;
-        console.log('PENDING FRIENDS ------->', friends);
         next();
       })
       .catch(err => {
-        console.log('NO PENDING FRIENDS --------->', err);
         next();
       });
     },
 
     findPending(req, res, next) {
-      console.log('inside findpending ---->', req.session.user.username);
       users.findPending(req.session.user.username)
       .then(friends => {
         req.session.findPending = true;
         req.session.findPendingFriends = friends;
-        console.log(`PENDING FRIENDS ------>`, friends);
         next();
       })
       .catch(err => {
         res.locals.findPending = false;
-        console.log(`THEY AREN'T PENDING`, err);
         next();
       });
     },
@@ -114,7 +102,6 @@ module.exports = {
       users.getNonFriends(req.session.user)
       .then(nonFriends => {
         req.session.nonFriends = nonFriends;
-        console.log('NON FRIENDS -------->', nonFriends);
         if (nonFriends.length === 0) {
           req.session.nonFriends = 'none';
         }
@@ -128,15 +115,12 @@ module.exports = {
 
     inFriends(req, res, next) {
       const confirmFriend = { 'user_id': req.session.user.username, 'friend_id': req.params.id };
-      console.log('inside infriends---->', confirmFriend);
       users.inFriendDatabase(confirmFriend)
       .then(friends => {
-        console.log('WORKING IN INFRIENDS');
         req.session.alreadyFriends = true;
         next();
       })
       .catch(err => {
-        console.log('NOT WORKING IN INFRIENDS');
         req.session.alreadyFriends = false;
         next();
       });

@@ -5,6 +5,7 @@ const viewsController = require('../controllers/viewsController');
 const authController = require('../controllers/authController');
 const friendController = require('../controllers/friendController');
 const postController = require('../controllers/postController');
+const likesController = require('../controllers/likeController');
 
 profileRouter.use(authController.isLoggedIn);
 
@@ -12,7 +13,9 @@ profileRouter.route('/')
   .get(profileController.getAllUsers, viewsController.showHome);
 
 profileRouter.route('/myProfile')
-  .get(friendController.getPendingFriends, friendController.getNonFriends, friendController.findPending, postController.getYourPosts, viewsController.showUser);
+  .get(friendController.getPendingFriends, friendController.getNonFriends,
+          friendController.findPending, likesController.getLikes,
+          postController.getYourPosts, viewsController.showUser);
 
 profileRouter.route('/delete')
     .get(viewsController.showDelete)
@@ -20,12 +23,10 @@ profileRouter.route('/delete')
 
 profileRouter.route('/edit/:id')
   .get(authController.isUser, authController.getUserId, viewsController.showEdit)
-  .post(authController.checkUser, profileController.updateUser, profileController.getAllUsers, postController.getYourPosts, viewsController.showUser);
+  .post(authController.checkUser, profileController.updateUser, profileController.getAllUsers,
+            likesController.getLikes, postController.getYourPosts, viewsController.showUser);
 
 profileRouter.route('/logout')
   .get(authController.logout);
-
-profileRouter.route('/:id')
-  .get(profileController.findFriendByUsername, viewsController.showUser);
 
 module.exports = profileRouter;

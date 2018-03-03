@@ -2,25 +2,33 @@ const likeDB = require('../config/connection');
 
 module.exports = {
   updateLike(updatePost) {
-    console.log('inside addlike---->', updatePost);
-    return likeDB.one(`INSERT INTO likes(user_id, post_id)
-                                    VALUES($[user], $[post])
+    console.log('inside updatelike---->', updatePost);
+    return likeDB.one(`INSERT INTO likes(post_writer, friend_id, post_id)
+                                    VALUES($[writer], $[friend], $[post])
                                     RETURNING *`, updatePost);
   },
 
   removeLike(updatePost) {
     console.log('inside removelike----->', updatePost);
-    return likeDB.one(`DELETE FROM likes
-                                    WHERE user_id = $[user_id]
-                                    AND id = $[post_id]`, updatePost);
+    return likeDB.none(`DELETE FROM likes
+                                    WHERE friend_id = $[friend]
+                                    AND post_id = $[post]`, updatePost);
   },
 
-  getLikes(post) {
-    console.log('inside getlikes ---->', post);
-    return likeDB.any(`SELECT user_id, post_id
+  getLikes(user) {
+    console.log('inside getlikes ---->', user);
+    return likeDB.any(`SELECT content, posts.user_id, posts.id, COUNT(likes.post_id)
                                     FROM likes
-                                    WHERE post_id = $[post_id])
-                                    RETURNING user_id`, post);
+                                    JOIN posts
+                                    ON likes.post_id = posts.id
+                                    WHERE posts.user_id = $1
+                                    GROUP BY content, posts.user_id, posts.id;`, user);
   },
 
+  alreadyLikes(user) {
+    return likeDB.one(`SELECT *
+                                    FROM likes
+                                    WHERE friend_id = $[friend]
+                                    AND post_id = $[post]`, user);
+  },
 };

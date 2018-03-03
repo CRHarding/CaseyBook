@@ -10,5 +10,5 @@
     <div class = 'navbar'>
       <a href='/profile'>Home</a>
       <a href='/profile/myProfile'><%if (isLoggedIn) {%><%=user.username%>'s <%}%>Profile</a>
-      <a href='profile/logout' id='logout'>Logout</a>
+      <% if(isLoggedIn) {%><a href='profile/logout' id='logout'>Logout</a><% } %>
     </div>
