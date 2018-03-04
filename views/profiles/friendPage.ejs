@@ -21,21 +21,23 @@
   <h4><%=friendUser.fname%>'s about me!</h4>
   <p><%=friendUser.aboutme%>
 <% } %>
-
+<br>
+<br>
 <% if (friendPosts) { %>
   <div id = 'friendPosts'>
       <% for (let onePost of friendPosts) { %>
         <% if (onePost.rest === 1 || areFriends) { %>
           <div id='author'>
-            <p><%=onePost.author %>
+            <p>Author: <%=onePost.author %></p>
           </div>
           <div id='onePost'>
             <p><%= onePost.content %></p>
           </div>
-
+          <% if (onePost.likes) { %>
           <div id='like'>
             <p>Likes: <%= onePost.likes %></p>
           </div>
+          <% } %>
           <div id='likeButton'>
             <% if (!alreadyLikes) {%>
               <form action='/friend/addLike/<%=onePost.post_id%>' method='post'>
@@ -49,6 +51,7 @@
           </div>
       <%}%>
     </div>
+    <br>
   <% } %>
 <% } %>
 

@@ -14,6 +14,10 @@
   <label>
     <textarea name="content" class="textBox" placeholder="Write something!"></textarea>
   </label>
+  <br>
+  <input type="radio" name="rest" value="1">Public<br>
+  <input type="radio" name="rest" value="2">Private<br>
+  <input type="radio" name="rest" value="3">Friends<br>
   <button type='submit'>Post</button>
 </form>
 
@@ -37,7 +41,7 @@
     </div>
     <% if (onePost.likes) { %>
       <div id='like'>
-        <p><%= onePost.likes %></p>
+        <p>Likes: <%= onePost.likes %></p>
       </div>
     <% } %>
   <%}%>

@@ -2,7 +2,11 @@ const posts = require('../models/postDB');
 
 module.exports = {
   addPost(req, res, next) {
-    const postObject = { 'user_id': req.session.user.username, 'content': req.body.content, 'rest': 1 };
+    if (!req.body.rest) {
+      req.body.rest = 1;
+    }
+
+    const postObject = { 'user_id': req.session.user.username, 'content': req.body.content, 'rest': req.body.rest };
     posts.addPost(postObject)
     .then(post => {
       console.log('ADDING POST WORKED ---->', post);

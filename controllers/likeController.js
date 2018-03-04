@@ -56,6 +56,7 @@ module.exports = {
 
   getLikes(req, res, next) {
     console.log('req.params / req.session.user -----> ', req.params.id, req.session.user.username);
+    console.log(' TYPE OF---->', typeof req.params.id);
     if (typeof req.params.id === 'string') {
       user = req.params.id;
     } else {

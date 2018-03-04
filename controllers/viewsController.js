@@ -30,11 +30,18 @@ module.exports = {
     console.log(res.locals.posts);
     if (res.locals.posts) {
       res.locals.posts.forEach(function (post) {
+        console.log('post----->', post);
         if (totalLikes) {
-          postLikes = totalLikes.filter(totalLikes => (totalLikes.post_id === post.post_id));
-          posts.push({ 'author': post.user_id, 'content': post.content, 'likes': postLikes, 'post_id': post.id });
+          console.log('TOTAL LIKES', totalLikes);
+          postLikes = totalLikes.filter(totalLikes => (totalLikes.id === post.id));
+          if (!postLikes[0]) {
+            posts.push({ 'author': post.user_id, 'content': post.content, 'likes': 0, 'post_id': post.id });
+          } else {
+            posts.push({ 'author': post.user_id, 'content': post.content, 'likes': postLikes[0].count, 'post_id': post.id });
+          }
+
         } else {
-          posts = res.locals.posts;
+          posts = friendPosts;
         }
       });
     } else {
@@ -77,9 +84,13 @@ module.exports = {
         console.log('post----->', post);
         if (totalLikes) {
           console.log('TOTAL LIKES', totalLikes);
-          console.log('TOTALLIKES.ID / POST.ID', totalLikes[0].id, post.id);
           postLikes = totalLikes.filter(totalLikes => (totalLikes.id === post.id));
-          posts.push({ 'author': post.user_id, 'content': post.content, 'likes': postLikes[0].count, 'post_id': post.id });
+          if (!postLikes[0]) {
+            posts.push({ 'author': post.user_id, 'content': post.content, 'likes': 0, 'post_id': post.id });
+          } else {
+            posts.push({ 'author': post.user_id, 'content': post.content, 'likes': postLikes[0].count, 'post_id': post.id });
+          }
+
         } else {
           posts = friendPosts;
         }
@@ -88,7 +99,7 @@ module.exports = {
       posts = false;
     }
 
-    console.log(posts);
+    console.log('FRIEND VIEWPOSTS------>', posts);
     res.render('profiles/friendPage', {
       friendUser: res.locals.friendUser,
       user: req.session.user,

@@ -50,6 +50,12 @@ module.exports = {
   },
 
   save(req, res, next) {
+    console.log(req.body);
+    if (!req.body.region) {
+      req.body.region = 0;
+    }
+
+    console.log(req.body);
     users.save(req.body)
     .then(user => {
       req.session.user = user;
@@ -58,7 +64,7 @@ module.exports = {
       next();
     })
     .catch(err => {
-      console.log('DID NOT WORK');
+      console.log('DID NOT WORK', err);
       next(err);
     });
   },

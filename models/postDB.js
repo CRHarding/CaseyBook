@@ -26,6 +26,7 @@ module.exports = {
                                     FROM posts
                                     WHERE user_id = $1
                                     AND rest = 1
-                                    OR rest = 3`, friend);
+                                    OR user_id = $1
+                                    AND rest = 3`, friend);
   },
 };

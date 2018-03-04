@@ -1,6 +1,6 @@
 <p>Other users</p>
 <% for (let oneUser of users) { %>
   <% if (oneUser.username != user.username) { %>
-    <a href='/friend/<%=oneUser.username%>'><%=oneUser.username%></a>
+      <a class = 'button' href='/friend/<%=oneUser.username%>'><%=oneUser.username%></a>
   <% } %>
 <%}%>

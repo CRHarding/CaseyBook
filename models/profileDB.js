@@ -2,11 +2,10 @@ const profileDB = require('../config/connection');
 const hasher = require('pbkdf2-password')();
 
 module.exports = {
-  save(user, ip) {
-    console.log(ip);
-    return profileDB.one(`INSERT INTO users(fname, lname, username, password, aboutme, ip)
+  save(user) {
+    return profileDB.one(`INSERT INTO users(fname, lname, username, password, aboutme, loc)
                                         VALUES($[fname], $[lname], $[username],
-                                          $[password], $[aboutme], $[ip]) RETURNING *`, user, ip);
+                                          $[password], $[aboutme], $[region]) RETURNING *`, user);
   },
 
   getUsers(user) {

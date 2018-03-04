@@ -63,23 +63,34 @@ a.button{
   float: right;
 }
 
-#onePost {
+.yourPost {
   display: block;
   clear: both;
   float: left;
+
+}
+
+#onePost {
   width: 50%;
   margin-bottom: 10px;
   padding: 5px 10px;
   font-size: 16px;
   background: #dfe3ee;
 }
-
 #likeButton {
   float: left;
 }
 
 #like {
   display: inline-block;
+}
+
+#dislike {
+  background-color: #008CBA;
+}
+
+#otherUser {
+  appearance: button;
 }
 
 footer {
