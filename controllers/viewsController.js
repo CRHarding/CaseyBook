@@ -27,10 +27,8 @@ module.exports = {
     }
 
     let posts = [];
-    console.log('THESE ARE THE POSTS----->', res.locals.posts);
     if (res.locals.posts) {
       res.locals.posts.forEach(function (post) {
-        console.log('post----->', post);
         if (totalLikes) {
           console.log('TOTAL LIKES', totalLikes);
           postLikes = totalLikes.filter(totalLikes => (totalLikes.id === post.id));
@@ -47,8 +45,6 @@ module.exports = {
       posts = false;
     }
 
-    console.log(posts);
-    console.log('TOTAL LIKES----->', totalLikes);
     res.render('profiles/homepage', {
       user: req.session.user,
       users: req.session.nonFriends,
@@ -80,9 +76,7 @@ module.exports = {
     let posts = [];
     if (friendPosts) {
       friendPosts.forEach(function (post) {
-        console.log('post----->', post);
         if (totalLikes) {
-          console.log('TOTAL LIKES', totalLikes);
           postLikes = totalLikes.filter(totalLikes => (totalLikes.id === post.id));
           if (!postLikes[0]) {
             posts.push({ 'author': post.user_id, 'content': post.content, 'likes': 0, 'post_id': post.id });
@@ -98,7 +92,6 @@ module.exports = {
       posts = false;
     }
 
-    console.log('FRIEND VIEWPOSTS------>', posts);
     res.render('profiles/friendPage', {
       friendUser: res.locals.friendUser,
       user: req.session.user,

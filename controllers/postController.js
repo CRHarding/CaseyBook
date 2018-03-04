@@ -13,11 +13,9 @@ module.exports = {
     const postObject = { 'user_id': req.session.user.username, 'friend_id': req.params.id, 'content': req.body.content, 'rest': req.body.rest };
     posts.addPost(postObject)
     .then(post => {
-      console.log('ADDING POST WORKED ---->', post);
       next();
     })
     .catch(err => {
-      console.log('ADDING POST FAILED ---->', err);
       next(err);
     });
   },
@@ -26,16 +24,15 @@ module.exports = {
     posts.getYourPosts(req.session.user.username)
     .then(posts => {
       res.locals.posts = posts;
-      console.log('INSIDE GET YOUR POSTS---->', posts);
       next();
     })
     .catch(err => {
-      console.log('INSIDE GET YOUR POSTS----->', err);
       next(err);
     });
   },
 
   getAllFriendPosts(req, res, next) {
+    console.log('INSIDE GETALLFRIENDPOSTS------>', res.locals.friendUser);
     posts.getAllFriendPosts(req.params.id)
     .then(posts => {
       res.locals.privateFriendPosts = posts;
@@ -64,7 +61,6 @@ module.exports = {
       next();
     })
     .catch(err => {
-      console.log('EDIT POST ERROR --->', err);
       next(err);
     });
   },
@@ -81,7 +77,6 @@ module.exports = {
       next();
     })
     .catch(err => {
-      console.log('POST UNABLE TO BE UPDATED---->', err);
       next(err);
     });
   },
@@ -89,11 +84,9 @@ module.exports = {
   deletePost(req, res, next) {
     posts.deletePost(req.params.id)
     .then(post => {
-      console.log('POST DELETED');
       next();
     })
     .catch(err => {
-      console.log('POST UNABLE TO BE DELETED ---->', err);
       next(err);
     });
   },

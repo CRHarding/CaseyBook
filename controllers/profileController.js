@@ -50,13 +50,11 @@ module.exports = {
   },
 
   save(req, res, next) {
-    console.log(res.locals.generalLoc);
     if (!res.locals.generalLoc) {
       res.locals.generalLoc = 0;
     }
 
     const saveUser = { 'body': req.body, 'loc': res.locals.generalLoc }
-    console.log(saveUser);
     users.save(saveUser)
     .then(user => {
       req.session.user = user;

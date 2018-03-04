@@ -81,16 +81,13 @@ module.exports = {
 
   updateLoc(req, res, next) {
     if (req.session.user) {
-      console.log(req.body.region);
       const locUser = { 'name': req.session.user.username, 'loc': req.body.region };
       if (req.session.user) {
         users.updateLoc(locUser)
         .then(user => {
-          console.log('location updated for: ', user);
           next();
         })
         .catch(err => {
-          console.log('location not able to be updated for: ', user, err);
           next();
         });
       };

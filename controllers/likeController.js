@@ -7,22 +7,18 @@ module.exports = {
       console.log(like);
       likes.updateLike(like)
       .then(workLike => {
-        console.log('LIKE UPDATED------>', workLike);
         next();
       })
       .catch(err => {
-        console.log('LIKE NOT UPDATED', err);
         next(err);
       });
     } else {
       const like = { 'friend': req.session.user.username, 'post': parseInt(req.params.id) };
       likes.removeLike(like)
       .then(workLike => {
-        console.log('LIKE DELETED------>', workLike);
         next();
       })
       .catch(err => {
-        console.log('LIKE NOT DELETED', err);
         next(err);
       });
     }
@@ -45,18 +41,15 @@ module.exports = {
     const dislike = { 'friend': req.session.user.username, 'post': parseInt(req.params.id) };
     likes.removeLike(dislike)
     .then(workDislike => {
-      console.log('LIKE DISLIKED ----->', workDislike);
       next();
     })
     .catch(err => {
-      console.log('LIKE DISLIKE NOT WORKING---->', err);
       next(err);
     });
   },
 
   getLikes(req, res, next) {
-    console.log('req.params / req.session.user -----> ', req.params.id, req.session.user.username);
-    console.log(' TYPE OF---->', typeof req.params.id);
+    console.log('req.params.id / req.session.user -----> ', req.params.id, req.session.user.username);
     if (typeof req.params.id === 'string') {
       user = req.params.id;
     } else {
@@ -66,12 +59,10 @@ module.exports = {
     console.log('inside getlikes----->', user);
     likes.getLikes(user)
     .then(totalLikes => {
-      console.log('TOTAL LIKES FOR POST ', totalLikes);
       res.locals.totalLikes = totalLikes;
       next();
     })
     .catch(err => {
-      console.log('GETTING TOTAL LIKES FAILED---->', err);
       next(err);
     });
   },

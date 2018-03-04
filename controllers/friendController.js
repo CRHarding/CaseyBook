@@ -2,38 +2,40 @@ const users = require('../models/friendDB');
 
 module.exports = {
     areFriends(req, res, next) {
-      const areFriends = {'user_id': req.session.user.username, 'friend_id': req.params.id };
+      const areFriends = {'user_id': req.session.user.username, 'friend_id': res.locals.friendUser.username };
       users.areFriends(areFriends)
       .then(friend => {
         res.locals.friends = true;
         res.locals.areFriends = true;
-        console.log(`THEY'RE FRIENDS`);
+        console.log('THEY ARE FRIENDS.');
         next();
       })
       .catch(err => {
         res.locals.friends = false;
         res.locals.areFriends = false;
-        console.log(`THEY AREN'T FRIENDS`, err);
+        console.log('THEY ARE NOT FRIENDS');
         next();
       });
     },
 
     arePending(req, res, next) {
       if (!req.session.alreadyFriends) {
-        const pendingFriends = {'user_id': req.session.user.username, 'friend_id': req.params.id };
+        const pendingFriends = {'user_id': req.session.user.username, 'friend_id': res.locals.friendUser.username };
         users.arePending(pendingFriends)
         .then(friend => {
           res.locals.pending = true;
           req.session.pendingFriends = friend;
-          console.log(`THEY'RE PENDING`);
+          console.log('THEY ARE PENDING');
           next();
         })
         .catch(err => {
           res.locals.pending = false;
-          console.log(`THEY AREN'T PENDING`);
+          console.log('THEY ARE NOT PENDING');
           next();
         });
-      };
+      } else {
+        next();
+      }
     },
 
     addFriend(req, res, next) {

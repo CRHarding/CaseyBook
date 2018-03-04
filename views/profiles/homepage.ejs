@@ -34,11 +34,10 @@
 <div class = 'yourPosts'>
   <% for (let onePost of userPosts) { %>
     <div id='author'>
-      <p>Author: <%= onePost.user_id %></p>
+      <p>Author: <%= onePost.author %></p>
     </div>
     <div id='onePost'>
       <%= onePost.content %></br>
-      <%= onePost.post_id%>
       <form action='/post/edit/<%=onePost.post_id%>' method='get'>
           <button type='submit'>Edit</button>
       </form>
