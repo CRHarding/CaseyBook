@@ -1,0 +1,13 @@
+<% include ../partials/boilerplate.ejs %>
+<h1>Edit Your Profile</h1>
+<%- message %>
+<form action="/post/edit/<%=post.id%>" method="post">
+  <label>
+    <textarea name="content" class="textBox"><%= post.content %></textarea>
+  </label>
+  <input type="radio" name="rest" value="1">Public<br>
+  <input type="radio" name="rest" value="2">Private<br>
+  <input type="radio" name="rest" value="3">Friends<br>
+  <button type="submit">Submit</button>
+</form>
+<% include ../partials/footer.ejs %>

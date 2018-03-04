@@ -29,4 +29,19 @@ module.exports = {
                                     OR user_id = $1
                                     AND rest = 3`, friend);
   },
+
+  getPostById(post) {
+    return postDB.one(`SELECT *
+                                    FROM posts
+                                    WHERE id = $1`, post);
+  },
+
+  editPost(post) {
+    return postDB.one(`UPDATE posts SET content = $[content], rest = $[rest]
+                                    WHERE id = $[id] RETURNING *`, post);
+  },
+
+  deletePost(post) {
+    return postDB.none(`DELETE FROM posts WHERE id = $1`, post);
+  },
 };

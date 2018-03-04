@@ -34,10 +34,17 @@
 <div class = 'yourPosts'>
   <% for (let onePost of userPosts) { %>
     <div id='author'>
-      <%= onePost.author %>
+      <p>Author: <%= onePost.user_id %></p>
     </div>
     <div id='onePost'>
       <%= onePost.content %></br>
+      <%= onePost.post_id%>
+      <form action='/post/edit/<%=onePost.post_id%>' method='get'>
+          <button type='submit'>Edit</button>
+      </form>
+      <form action='/post/delete/<%=onePost.post_id%>' method='post'>
+          <button type='submit'>Delete</button>
+      </form>
     </div>
     <% if (onePost.likes) { %>
       <div id='like'>

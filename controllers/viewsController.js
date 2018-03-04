@@ -133,6 +133,12 @@ module.exports = {
     });
   },
 
+  showPostEdit(req, res) {
+    res.render('profiles/editPost', {
+      post: res.locals.editPost,
+    });
+  },
+
   showLogin(req, res) {
     res.render('login');
   },

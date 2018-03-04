@@ -26,7 +26,6 @@
 <% if (friendPosts) { %>
   <div id = 'friendPosts'>
       <% for (let onePost of friendPosts) { %>
-        <% if (onePost.rest === 1 || areFriends) { %>
           <div id='author'>
             <p>Author: <%=onePost.author %></p>
           </div>
@@ -49,7 +48,6 @@
               </form>
             <% } %>
           </div>
-      <%}%>
     </div>
     <br>
   <% } %>
