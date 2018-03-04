@@ -31,10 +31,8 @@ I started by implementing a simple two database system. One for users, and one f
 Beyond that, you start at the index page and either enter your name and password if you are a returning user or you click the register button where you are taken to a registration page to fill out the required information.
 
 #### Unsolved problems
-1. Give users the ability to comment on others profiles
-2. Hash / salt passwords so that they are secure
-3. Set up a comments database that keeps track of who wrote what and where so that only the author of the comment can edit it
-4. General CSS / HTML beauty upgrades...
+1. Hash / salt passwords so that they are secure
+2. General CSS / HTML beauty upgrades...
 
 #### Links and Resources
 * https://www.facebook.com
