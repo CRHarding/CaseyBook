@@ -1,5 +1,5 @@
 $(() => {
-    $.getJSON("http://ipinfo.io/?token=ca0bf2e0b0eeac", function (data) {
+    $.getJSON("http://ipinfo.io/req.headers['x-forwarded-for']", function (data) {
         sendToDB(data);
       });
   });
