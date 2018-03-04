@@ -91,7 +91,8 @@ module.exports = {
     } else {
       posts = false;
     }
-
+    console.log('POSTS----->', posts);
+    console.log('USER---->', req.session.user);
     res.render('profiles/friendPage', {
       friendUser: res.locals.friendUser,
       user: req.session.user,

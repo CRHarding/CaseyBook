@@ -53,15 +53,15 @@
           </div>
           <% } %>
           <% if (user.usename != onePost.author) { %>
-          <div id='likeButton'>
-            <% if (!alreadyLikes) {%>
-              <form action='/friend/addLike/<%=onePost.post_id%>' method='post'>
-                <input type='submit' value='Like'/>
-              </form>
-            <% } else { %>
-              <form action='/friend/removeLike/<%=onePost.post_id%>' method='post'>
-                <input type='submit' value='Like'/>
-              </form>
+            <div id='likeButton'>
+              <% if (!alreadyLikes) {%>
+                <form action='/friend/addLike/<%=onePost.post_id%>' method='post'>
+                  <input type='submit' value='Like'/>
+                </form>
+              <% } else { %>
+                <form action='/friend/removeLike/<%=onePost.post_id%>' method='post'>
+                  <input type='submit' value='Like'/>
+                </form>
             <% } %>
           </div>
           <% } %>

@@ -39,7 +39,7 @@ postRouter.route('/friend/edit/:id')
   .post(postController.editPost, friendController.arePending,
           friendController.areFriends, postController.getAllFriendPosts,
               postController.getPublicFriendPosts, likeController.getLikes,
-                viewsController.showFriendPage);
+                viewsController.showUser);
 
 postRouter.route('/friend/delete/:id')
   .post(postController.deletePost, friendController.arePending,
