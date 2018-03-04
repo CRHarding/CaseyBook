@@ -27,7 +27,7 @@ module.exports = {
     }
 
     let posts = [];
-    console.log(res.locals.posts);
+    console.log('THESE ARE THE POSTS----->', res.locals.posts);
     if (res.locals.posts) {
       res.locals.posts.forEach(function (post) {
         console.log('post----->', post);
@@ -39,9 +39,8 @@ module.exports = {
           } else {
             posts.push({ 'author': post.user_id, 'content': post.content, 'likes': postLikes[0].count, 'post_id': post.id });
           }
-
         } else {
-          posts = friendPosts;
+          posts = res.locals.posts;
         }
       });
     } else {
