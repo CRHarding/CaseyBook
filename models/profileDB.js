@@ -3,9 +3,10 @@ const hasher = require('pbkdf2-password')();
 
 module.exports = {
   save(user) {
+    console.log(user);
     return profileDB.one(`INSERT INTO users(fname, lname, username, password, aboutme, loc)
-                                        VALUES($[fname], $[lname], $[username],
-                                          $[password], $[aboutme], $[region]) RETURNING *`, user);
+                                        VALUES($[body.fname], $[body.lname], $[body.username],
+                                          $[body.password], $[body.aboutme], $[loc]) RETURNING *`, user);
   },
 
   getUsers(user) {

@@ -51,12 +51,13 @@ module.exports = {
 
   save(req, res, next) {
     console.log(req.body);
-    if (!req.body.region) {
-      req.body.region = 0;
+    console.log(res.locals.generalLoc);
+    if (!res.locals.generalLoc) {
+      res.locals.generalLoc = 0;
     }
-
-    console.log(req.body);
-    users.save(req.body)
+    const saveUser = { 'body': req.body, 'loc': res.locals.generalLoc }
+    console.log(saveUser);
+    users.save(saveUser)
     .then(user => {
       req.session.user = user;
       req.session.isLoggedIn = true;
