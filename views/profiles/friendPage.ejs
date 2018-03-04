@@ -18,25 +18,41 @@
 <% } %>
 
 <% if (areFriends) { %>
-  <h4><%=friendUser.fname%>'s about me!</h4>
-  <p><%=friendUser.aboutme%>
+  <h4><%= friendUser.fname %>'s about me!</h4>
+  <p><%= friendUser.aboutme %>
 <% } %>
 <br>
 <br>
+<h3>Post on <%= friendUser.fname %>'s' wall?</h3>
+<form action='/post/friend/<%= friendUser.username %>' method='post'>
+  <label>
+    <textarea name="content" class="textBox" placeholder="Write something!"></textarea>
+  </label>
+  <button type='submit'>Post</button>
+</form>
 <% if (friendPosts) { %>
   <div id = 'friendPosts'>
       <% for (let onePost of friendPosts) { %>
           <div id='author'>
-            <p>Author: <%=onePost.author %></p>
+            <p>Author: <%= onePost.author %></p>
           </div>
           <div id='onePost'>
             <p><%= onePost.content %></p>
           </div>
+          <% if(user.username === onePost.author) { %>
+            <form action='/post/friend/edit/<%=onePost.post_id%>' method='get'>
+                <button type='submit'>Edit</button>
+            </form>
+            <form action='/post/friend/delete/<%=onePost.post_id%>' method='post'>
+                <button type='submit'>Delete</button>
+            </form>
+          <% } %>
           <% if (onePost.likes) { %>
           <div id='like'>
             <p>Likes: <%= onePost.likes %></p>
           </div>
           <% } %>
+          <% if (user.usename != onePost.author) { %>
           <div id='likeButton'>
             <% if (!alreadyLikes) {%>
               <form action='/friend/addLike/<%=onePost.post_id%>' method='post'>
@@ -48,6 +64,7 @@
               </form>
             <% } %>
           </div>
+          <% } %>
     </div>
     <br>
   <% } %>

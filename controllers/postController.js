@@ -6,7 +6,11 @@ module.exports = {
       req.body.rest = 1;
     }
 
-    const postObject = { 'user_id': req.session.user.username, 'content': req.body.content, 'rest': req.body.rest };
+    if (!req.params.id) {
+      req.params.id = req.session.user.username;
+    }
+
+    const postObject = { 'user_id': req.session.user.username, 'friend_id': req.params.id, 'content': req.body.content, 'rest': req.body.rest };
     posts.addPost(postObject)
     .then(post => {
       console.log('ADDING POST WORKED ---->', post);
@@ -66,6 +70,11 @@ module.exports = {
   },
 
   editPost(req, res, next) {
+    console.log(req.body.rest);
+    if (!req.body.rest) {
+      req.body.rest =1;
+    }
+
     const postToEdit = { 'id': req.params.id, 'content': req.body.content, 'rest': req.body.rest };
     posts.editPost(postToEdit)
     .then(post => {

@@ -1,7 +1,7 @@
 <% include ../partials/boilerplate.ejs %>
 <h1>Edit Your Post</h1>
 <%- message %>
-<form action="/post/edit/<%=post.id%>" method="post">
+<form action="/post/friend/edit/<%=post.id%>" method="post">
   <label>
     <textarea name="content" class="textBox"><%= post.content %></textarea>
   </label>

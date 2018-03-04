@@ -15,6 +15,12 @@ postRouter.route('/')
               friendController.findPending, postController.getYourPosts, likeController.getLikes,
                 viewsController.showUser);
 
+postRouter.route('/friend/:id')
+  .post(postController.addPost, profileController.findFriendByUsername,
+            friendController.arePending, friendController.areFriends,
+              postController.getAllFriendPosts, postController.getPublicFriendPosts,
+                likeController.getLikes, viewsController.showFriendPage);
+
 postRouter.route('/edit/:id')
   .get(postController.getPostById, viewsController.showPostEdit)
   .post(postController.editPost, profileController.getAllUsers,
@@ -27,5 +33,18 @@ postRouter.route('/delete/:id')
             friendController.getNonFriends, friendController.getPendingFriends,
               friendController.findPending, postController.getYourPosts, likeController.getLikes,
               viewsController.showUser);
+
+postRouter.route('/friend/edit/:id')
+  .get(postController.getPostById, viewsController.showPostEdit)
+  .post(postController.editPost, friendController.arePending,
+          friendController.areFriends, postController.getAllFriendPosts,
+              postController.getPublicFriendPosts, likeController.getLikes,
+                viewsController.showFriendPage);
+
+postRouter.route('/friend/delete/:id')
+  .post(postController.deletePost, friendController.arePending,
+          friendController.areFriends, postController.getAllFriendPosts,
+              postController.getPublicFriendPosts, likeController.getLikes,
+                viewsController.showFriendPage);
 
 module.exports = postRouter;
