@@ -19,6 +19,7 @@ authRouter.route('/login')
               friendController.findPending, postController.getYourPosts, likeController.getLikes,
                     viewsController.showUser);
 
+authRouter.post('/loc', authController.updateLoc);
 authRouter.get('/logout', authController.logout);
 
 module.exports = authRouter;

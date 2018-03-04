@@ -78,6 +78,10 @@ a.button{
   float: left;
 }
 
+#like {
+  display: inline-block;
+}
+
 footer {
   text-align: right;
   float: right;

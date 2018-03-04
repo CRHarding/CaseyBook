@@ -12,6 +12,7 @@ CREATE TABLE users (
   username VARCHAR(255) UNIQUE,
   password VARCHAR(255),
   aboutme VARCHAR(255),
+  loc VARCHAR(255),
   dateCreated TIMESTAMP NOT NULL DEFAULT NOW()
 );
 

@@ -78,4 +78,20 @@ module.exports = {
       res.redirect(`back`);
     });
   },
+
+  updateLoc(req, res, next) {
+    console.log('inside updateLoc', req.body.region);
+    const locUser = { 'name': req.session.user.username, 'loc': req.body.region };
+    if (req.session.user) {
+      users.updateLoc(locUser)
+      .then(user => {
+        console.log('location updated for: ', user);
+        next();
+      })
+      .catch(err => {
+        console.log('location not able to be updated for: ', user, err);
+        next();
+      });
+    };
+  },
 };
