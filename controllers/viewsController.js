@@ -2,6 +2,9 @@ const users = require('../models/profileDB');
 
 module.exports = {
   showUser(req, res) {
+    // General checking for if req.session / res.locals variables exist
+    // If not give them general fallback values
+
     if (req.session.pendingFriends) {
       if (req.session.pendingFriends.length > 0) {
         showPending = true;
@@ -25,6 +28,9 @@ module.exports = {
     } else {
       totalLikes = false;
     }
+
+//Take the passed post information and use that to populate a users posts
+//Also used to pull together posts and likes into one object
 
     let posts = [];
     if (res.locals.posts) {
@@ -60,6 +66,9 @@ module.exports = {
   },
 
   showFriendPage(req, res) {
+//General checking for res.locals / req.session values, setting them to
+// fallback values if not supplied
+
     if (res.locals.areFriends) {
       friendPosts = res.locals.privateFriendPosts;
     } else {
@@ -72,6 +81,7 @@ module.exports = {
       totalLikes = false;
     }
 
+//Populate friend posts / likes
     let posts = [];
     if (friendPosts) {
       friendPosts.forEach(function (post) {
@@ -102,6 +112,9 @@ module.exports = {
       alreadyLikes: res.locals.alreadyLikes,
     });
   },
+
+//Show a new user, most variables set to false since there aren't any
+//posts / friends yet.
 
   showNewUser(req, res) {
     res.render('profiles/homepage', {

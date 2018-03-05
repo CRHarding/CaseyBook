@@ -12,6 +12,7 @@ profileRouter.use(authController.isLoggedIn);
 profileRouter.route('/')
   .get(profileController.getAllUsers, viewsController.showHome);
 
+//Get the friends, posts, and likes for the current user
 profileRouter.route('/myProfile')
   .get(friendController.getPendingFriends, friendController.getNonFriends,
           friendController.findPending, likesController.getLikes,

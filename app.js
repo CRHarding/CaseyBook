@@ -1,3 +1,4 @@
+//Setting up requirements
 const express = require('express');
 const logger = require('morgan');
 const methodOverride = require('method-override');
@@ -11,6 +12,7 @@ const authRouter = require('./routes/auth_routes');
 const friendRouter = require('./routes/friend_routes');
 const postRouter = require('./routes/post_routes');
 
+//Setting up middleware
 const app = express();
 app.use(logger('dev'));
 
@@ -32,6 +34,7 @@ app.use(session({
   secret: 'tilt huff blown back',
 }));
 
+//Setting up res.locals variables
 app.use(function (req, res, next) {
   const err = req.session.error;
   const msg = req.session.success;
@@ -49,6 +52,7 @@ app.use(function (req, res, next) {
   next();
 });
 
+//Routing
 app.use('/profile', profilesRouter);
 app.use('/authenticate', authRouter);
 app.use('/friend', friendRouter);

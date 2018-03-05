@@ -22,6 +22,7 @@ friend other accounts, and delete their account.
 9. Method Override
 10. Body Parser
 11. Express-Session
+12. https://ipinfo.io/ to log users general location
 
 #### Approach Taken
 I started by implementing a simple two database system. One for users, and one for the friendship connections between the users. Once I have those set and arranged I would like to move into hashing the passwords and adding a salt to make things secure. I would also like to give the users the option to write on their friends profile page / comment on their own. This would entail another database to handle the comments and threads.
@@ -33,6 +34,8 @@ Beyond that, you start at the index page and either enter your name and password
 #### Unsolved problems
 1. Hash / salt passwords so that they are secure
 2. General CSS / HTML beauty upgrades...
+3. Add time to userPosts
+4. Add date and time user created profile
 
 #### Links and Resources
 * https://www.facebook.com
