@@ -4,7 +4,6 @@ module.exports = {
   updateLike(req, res, next) {
     if (!res.locals.alreadyLikes) {
       const like = { 'writer': res.locals.friendUser, 'friend': req.session.user.username, 'post': parseInt(req.params.id) };
-      console.log(like);
       likes.updateLike(like)
       .then(workLike => {
         next();
@@ -49,14 +48,12 @@ module.exports = {
   },
 
   getLikes(req, res, next) {
-    console.log('req.params.id / req.session.user -----> ', req.params.id, req.session.user.username);
     if (typeof req.params.id === 'string') {
       user = req.params.id;
     } else {
       user = req.session.user.username;
     }
 
-    console.log('inside getlikes----->', user);
     likes.getLikes(user)
     .then(totalLikes => {
       res.locals.totalLikes = totalLikes;

@@ -7,13 +7,11 @@ module.exports = {
       .then(friend => {
         res.locals.friends = true;
         res.locals.areFriends = true;
-        console.log('THEY ARE FRIENDS.');
         next();
       })
       .catch(err => {
         res.locals.friends = false;
         res.locals.areFriends = false;
-        console.log('THEY ARE NOT FRIENDS');
         next();
       });
     },
@@ -25,12 +23,10 @@ module.exports = {
         .then(friend => {
           res.locals.pending = true;
           req.session.pendingFriends = friend;
-          console.log('THEY ARE PENDING');
           next();
         })
         .catch(err => {
           res.locals.pending = false;
-          console.log('THEY ARE NOT PENDING');
           next();
         });
       } else {

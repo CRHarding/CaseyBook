@@ -59,11 +59,9 @@ module.exports = {
     .then(user => {
       req.session.user = user;
       req.session.isLoggedIn = true;
-      console.log(user);
       next();
     })
     .catch(err => {
-      console.log('DID NOT WORK', err);
       next(err);
     });
   },

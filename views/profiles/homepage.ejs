@@ -31,27 +31,48 @@
 </form>
 
 <% if (userPosts) { %>
-<div class = 'yourPosts'>
-  <% for (let onePost of userPosts) { %>
-    <div id='author'>
-      <p>Author: <%= onePost.author %></p>
-    </div>
-    <div id='onePost'>
-      <%= onePost.content %></br>
-      <form action='/post/edit/<%=onePost.post_id%>' method='get'>
-          <button type='submit'>Edit</button>
-      </form>
-      <form action='/post/delete/<%=onePost.post_id%>' method='post'>
-          <button type='submit'>Delete</button>
-      </form>
-    </div>
-    <% if (onePost.likes) { %>
+  <div class = 'yourPosts'>
+    <% for (let onePost of userPosts) { %>
+      <div id='author'>
+        <p>Author: <%= onePost.author %></p>
+      </div>
+      <div id='onePost'>
+        <p><%= onePost.content %></p>
+      </div>
+      <% if(user.username === onePost.author) { %>
+        <form action='/post/friend/edit/<%=onePost.post_id%>' method='get'>
+            <button type='submit'>Edit</button>
+        </form>
+        <form action='/post/friend/delete/<%=onePost.post_id%>' method='post'>
+            <button type='submit'>Delete</button>
+        </form>
+      <% } %>
+      <% if (onePost.likes) { %>
       <div id='like'>
         <p>Likes: <%= onePost.likes %></p>
       </div>
-    <% } %>
-  <%}%>
-</div>
+      <% } %>
+      <% if (onePost.likes) { %>
+      <div id='like'>
+        <p>Likes: <%= onePost.likes %></p>
+      </div>
+      <% } %>
+      <% if (user.username != onePost.author) { %>
+        <div id='likeButton'>
+          <% if (!alreadyLikes) {%>
+            <form action='/friend/addLike/<%=onePost.post_id%>' method='post'>
+              <input type='submit' value='Like'/>
+            </form>
+          <% } else { %>
+            <form action='/friend/removeLike/<%=onePost.post_id%>' method='post'>
+              <input type='submit' value='Like'/>
+            </form>
+        <% } %>
+      </div>
+      <% } %>
+  </div>
+  <br>
+  <% } %>
 <% } %>
 
 <% include ../partials/footer %>

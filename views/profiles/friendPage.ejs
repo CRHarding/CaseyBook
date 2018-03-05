@@ -52,7 +52,7 @@
             <p>Likes: <%= onePost.likes %></p>
           </div>
           <% } %>
-          <% if (user.usename != onePost.author) { %>
+          <% if (user.username != onePost.author) { %>
             <div id='likeButton'>
               <% if (!alreadyLikes) {%>
                 <form action='/friend/addLike/<%=onePost.post_id%>' method='post'>

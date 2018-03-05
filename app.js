@@ -44,7 +44,6 @@ app.use(function (req, res, next) {
   res.locals.isLoggedIn = false;
   res.locals.areFriends = false;
   res.locals.alreadyLikes = false;
-  console.log(req.session.ip);
   if (err) res.locals.message = `<p class="msg error">${err}</p>`;
   if (msg) res.locals.message = `<p class="msg success">${msg}</p>`;
   next();

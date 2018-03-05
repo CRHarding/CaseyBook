@@ -32,7 +32,6 @@ module.exports = {
   },
 
   getAllFriendPosts(req, res, next) {
-    console.log('INSIDE GETALLFRIENDPOSTS------>', res.locals.friendUser);
     posts.getAllFriendPosts(req.params.id)
     .then(posts => {
       res.locals.privateFriendPosts = posts;
@@ -66,7 +65,6 @@ module.exports = {
   },
 
   editPost(req, res, next) {
-    console.log(req.body.rest);
     if (!req.body.rest) {
       req.body.rest =1;
     }

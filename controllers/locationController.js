@@ -9,10 +9,10 @@ module.exports = {
       })
       .then(result => {
         res.locals.generalLoc = result.data.city;
+        console.log(result.data.city);
         next();
       })
       .catch(err => {
-        console.log(err);
         next();
       });
     },
