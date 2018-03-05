@@ -1,6 +1,7 @@
 const likes = require('../models/likeDB');
 
 module.exports = {
+//add the user / post id to the like database
   updateLike(req, res, next) {
     if (!res.locals.alreadyLikes) {
       const like = { 'writer': res.locals.friendUser, 'friend': req.session.user.username, 'post': parseInt(req.params.id) };
@@ -47,6 +48,9 @@ module.exports = {
     });
   },
 
+//get the total likes for a specific user. If req.params.id === string (aka you are
+//on the site of a friend), it will pull that users' likes, otherwise you are at your
+//homepage and so it grabs those likes
   getLikes(req, res, next) {
     if (typeof req.params.id === 'string') {
       user = req.params.id;

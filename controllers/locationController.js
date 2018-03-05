@@ -1,3 +1,5 @@
+//getting current location of user from ipinfo.io
+
 const axios = require('axios');
 
 module.exports = {

@@ -111,6 +111,7 @@ module.exports = {
       });
     },
 
+//Check to see if you and the user of the page you are visiting are already friends
     inFriends(req, res, next) {
       const confirmFriend = { 'user_id': req.session.user.username, 'friend_id': req.params.id };
       users.inFriendDatabase(confirmFriend)
