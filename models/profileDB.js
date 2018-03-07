@@ -2,10 +2,31 @@ const profileDB = require('../config/connection');
 const hasher = require('pbkdf2-password')();
 
 module.exports = {
-  save(user) {
-    return profileDB.one(`INSERT INTO users(fname, lname, username, password, aboutme, loc)
-                                        VALUES($[body.fname], $[body.lname], $[body.username],
-                                          $[body.password], $[body.aboutme], $[loc]) RETURNING *`, user);
+  hash(user) {
+    const pass = hasher({ password: user.body.password, salt: user.body.salt }, (err, pass, salt, hash) => {
+      if (err) {
+        return err;
+      } else {
+
+        const newUser = { 'fname': user.body.fname, 'lname': user.body.lname,'username': user.body.username, 'aboutme': user.body.aboutme, 'password': hash, 'salt': salt }
+        console.log('NEW USER----->', newUser);
+        return newUser;
+      }
+    });
+  },
+
+  save(sentUser) {
+    return profileDB.one(`INSERT INTO users(fname, lname, username, salt, password, aboutme, loc)
+                                        VALUES($[user.fname], $[user.lname], $[user.username],
+                                          $[salt], $[password], $[user.aboutme], $[user.loc]) RETURNING *`, sentUser);
+  },
+
+  checkUser(user) {
+    return profileDB.one(`SELECT *
+                                        FROM users
+                                        WHERE username = $[username]
+                                        AND password = $[password]`,
+                                        user);
   },
 
   getUsers(user) {
