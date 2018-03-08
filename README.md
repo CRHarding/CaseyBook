@@ -32,10 +32,9 @@ I started by implementing a simple two database system. One for users, and one f
 Beyond that, you start at the index page and either enter your name and password if you are a returning user or you click the register button where you are taken to a registration page to fill out the required information.
 
 #### Unsolved problems
-1. Hash / salt passwords so that they are secure
-2. General CSS / HTML beauty upgrades...
-3. Add time to userPosts
-4. Add date and time user created profile
+1. Improve the homepage so that you see the newest posts at the top and/or the posts with the most likes
+2. Add time posted to posts
+3. Add date and time that the user created their profile
 
 #### Links and Resources
 * https://www.facebook.com
