@@ -34,13 +34,18 @@ module.exports = {
 
     let posts = [];
     if (res.locals.posts) {
+      console.log(res.locals.posts);
       res.locals.posts.forEach(function (post) {
         if (totalLikes) {
+          const day = post.date_posted.getDay();
+          const month = post.date_posted.getMonth();
+          const year = post.date_posted.getFullYear();
+          const postDate = month + ', ' + day + ', ' + year;
           postLikes = totalLikes.filter(totalLikes => (totalLikes.id === post.id));
           if (!postLikes[0]) {
-            posts.push({ 'author': post.user_id, 'content': post.content, 'likes': 0, 'post_id': post.id });
+            posts.push({ 'author': post.user_id, 'content': post.content, 'likes': 0, 'post_id': post.id, 'datePosted': postDate });
           } else {
-            posts.push({ 'author': post.user_id, 'content': post.content, 'likes': postLikes[0].count, 'post_id': post.id });
+            posts.push({ 'author': post.user_id, 'content': post.content, 'likes': postLikes[0].count, 'post_id': post.id, 'datePosted': postDate });
           }
         } else {
           posts = res.locals.posts;
@@ -86,11 +91,15 @@ module.exports = {
     if (friendPosts) {
       friendPosts.forEach(function (post) {
         if (totalLikes) {
+          const day = post.date_posted.getDay();
+          const month = post.date_posted.getMonth();
+          const year = post.date_posted.getFullYear();
+          const postDate = month + ', ' + day + ', ' + year;
           postLikes = totalLikes.filter(totalLikes => (totalLikes.id === post.id));
           if (!postLikes[0]) {
-            posts.push({ 'author': post.user_id, 'content': post.content, 'likes': 0, 'post_id': post.id });
+            posts.push({ 'author': post.user_id, 'content': post.content, 'likes': 0, 'post_id': post.id, 'datePosted': postDate });
           } else {
-            posts.push({ 'author': post.user_id, 'content': post.content, 'likes': postLikes[0].count, 'post_id': post.id });
+            posts.push({ 'author': post.user_id, 'content': post.content, 'likes': postLikes[0].count, 'post_id': post.id, 'datePosted': postDate });
           }
 
         } else {

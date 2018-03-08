@@ -33,6 +33,9 @@
 <% if (friendPosts) { %>
   <div id = 'friendPosts'>
       <% for (let onePost of friendPosts) { %>
+        <div id='date'>
+          <p>Date Posted: <%= onePost.datePosted %></p>
+        </div>
           <div id='author'>
             <p>Author: <%= onePost.author %></p>
           </div>

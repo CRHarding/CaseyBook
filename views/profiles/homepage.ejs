@@ -33,6 +33,8 @@
 <% if (userPosts) { %>
   <div class = 'yourPosts'>
     <% for (let onePost of userPosts) { %>
+      <div id='date'>
+        <p>Date Posted: <%= onePost.datePosted %></p>
       <div id='author'>
         <p>Author: <%= onePost.author %></p>
       </div>

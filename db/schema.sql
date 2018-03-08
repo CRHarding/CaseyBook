@@ -14,7 +14,7 @@ CREATE TABLE users (
   salt VARCHAR(255),
   aboutme VARCHAR(255),
   loc VARCHAR(255),
-  dateCreated TIMESTAMP NOT NULL DEFAULT NOW()
+  date_created TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE friends (
@@ -22,7 +22,7 @@ CREATE TABLE friends (
   user_id VARCHAR(255) REFERENCES users(username) ON UPDATE CASCADE ON DELETE CASCADE NOT NULL,
   friend_id VARCHAR(255) REFERENCES users(username) ON UPDATE CASCADE ON DELETE CASCADE NOT NULL,
   status integer default 4,
-  dateFriended TIMESTAMP NOT NULL DEFAULT NOW()
+  date_friended TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE posts (
@@ -31,7 +31,7 @@ CREATE TABLE posts (
   friend_id VARCHAR(255) REFERENCES  users(username) ON UPDATE CASCADE ON DELETE CASCADE,
   content VARCHAR(750),
   rest integer default 1,
-  datePosted TIMESTAMP NOT NULL DEFAULT NOW()
+  date_posted TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE likes (
@@ -39,7 +39,7 @@ CREATE TABLE likes (
   post_id integer REFERENCES posts(id) ON UPDATE CASCADE ON DELETE CASCADE NOT NULL,
   post_writer VARCHAR(255) REFERENCES users(username) ON UPDATE CASCADE ON DELETE CASCADE,
   friend_id VARCHAR(255) REFERENCES users(username) ON UPDATE CASCADE ON DELETE CASCADE NOT NULL,
-  datePosted TIMESTAMP NOT NULL DEFAULT NOW()
+  date_posted TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
 CREATE INDEX ON users (username);

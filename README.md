@@ -28,8 +28,7 @@ friend other accounts, and delete their account.
 I started by implementing a simple two database system. One for users, and one for the friendship connections between the users. Once I have those set and arranged I would like to move into hashing the passwords and adding a salt to make things secure. I would also like to give the users the option to write on their friends profile page / comment on their own. This would entail another database to handle the comments and threads.
 
 #### How to Use
-# DO NOT USE A REAL PASSWORD. CURRENTLY NO PASSWORDS ARE HASHED AND SO ARE VISIBLE TO EVERYONE
-Beyond that, you start at the index page and either enter your name and password if you are a returning user or you click the register button where you are taken to a registration page to fill out the required information.
+You start at the index page and either enter your name and password if you are a returning user or you click the register button where you are taken to a registration page to fill out the required information.
 
 #### Unsolved problems
 1. Improve the homepage so that you see the newest posts at the top and/or the posts with the most likes

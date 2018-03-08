@@ -9,20 +9,20 @@ module.exports = {
   },
 
   getYourPosts(user) {
-    return postDB.any(`SELECT user_id, friend_id, content, id
+    return postDB.any(`SELECT user_id, friend_id, content, id, date_posted
                                     FROM posts
                                     WHERE friend_id = $1`, user);
   },
 
   getPublicFriendPosts(friend) {
-    return postDB.any(`SELECT user_id, friend_id, content, id
+    return postDB.any(`SELECT user_id, friend_id, content, id, date_posted
                                     FROM posts
                                     WHERE friend_id = $1
                                     AND rest = 1`, friend);
   },
 
   getAllFriendPosts(friend) {
-    return postDB.any(`SELECT user_id, friend_id, content, id
+    return postDB.any(`SELECT user_id, friend_id, content, id, date_posted
                                     FROM posts
                                     WHERE friend_id = $1
                                     AND rest = 1
