@@ -1,5 +1,4 @@
 const users = require('../models/profileDB');
-const hasher = require('pbkdf2-password')();
 
 module.exports = {
 //Checking to make sure the user editing their profile doesn't change their username
@@ -79,10 +78,12 @@ module.exports = {
 //authenticate carries out the pgpromise of whether or not
 //the hashed password and username exist (try / catch)
   authenticate(req, res, next) {
-    users.hash(req.body)
-    .then(hashPass => {
-      req.body.hashPass = hashPass;
-      users.authenticateByUsername(req.body)
+    const initPass = req.body.password;
+    users.findUser(req.body)
+    .then(user => {
+      user.hash = user.password;
+      user.password = initPass;
+      users.checkUser(user)
       .then(user => {
         req.session.user = user;
         req.session.isLoggedIn = true;
@@ -95,8 +96,9 @@ module.exports = {
       });
     })
     .catch(err => {
-      console.log('HASH FAILED--->', err);
-    })
+      req.session.error = 'Username and/or password not found, please try again';
+      res.redirect('back');
+    });
   },
 
 //update the current location of the user in the database.

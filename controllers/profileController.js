@@ -55,22 +55,15 @@ module.exports = {
     }
 
     let saveUser = { 'body': req.body, 'loc': res.locals.generalLoc }
-    users.hash(saveUser)
-    .then(hashUser => {
-      hashUser.save(saveUser)
-      .then(user => {
-        req.session.user = user;
-        req.session.isLoggedIn = true;
-        next();
-      })
-      .catch(err => {
-        next(err);
-      });
+    users.save(saveUser)
+    .then(user => {
+      req.session.user = user;
+      req.session.isLoggedIn = true;
+      next();
     })
     .catch(err => {
-      console.log('HASHING FAILED---->', err);
       next(err);
-    })
+    });
   },
 
   findFriendByUsername(req, res, next) {

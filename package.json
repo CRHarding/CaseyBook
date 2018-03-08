@@ -17,6 +17,7 @@
   "dependencies": {
     "ajax": "0.0.4",
     "axios": "^0.18.0",
+    "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "crypto": "^1.0.1",
     "ejs": "^2.5.7",
