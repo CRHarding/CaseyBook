@@ -4,6 +4,7 @@ class PostServices {
   requestHeaders() {
     return { AUTHORIZATION: `Bearer ${sessionStorage.jwt}` };
   }
+
   getAllPosts() {
     const headers = this.requestHeaders();
     return axios({
