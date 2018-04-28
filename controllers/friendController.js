@@ -2,7 +2,7 @@ const users = require('../models/friendDB');
 
 module.exports = {
     areFriends(req, res, next) {
-      const areFriends = {'user_id': req.session.user.username, 'friend_id': res.locals.friendUser.username };
+      const areFriends = {'user_id': req.session.user.email, 'friend_id': res.locals.friendUser.email };
       users.areFriends(areFriends)
       .then(friend => {
         res.locals.friends = true;
@@ -18,7 +18,7 @@ module.exports = {
 
     arePending(req, res, next) {
       if (!req.session.alreadyFriends) {
-        const pendingFriends = {'user_id': req.session.user.username, 'friend_id': res.locals.friendUser.username };
+        const pendingFriends = {'user_id': req.session.user.email, 'friend_id': res.locals.friendUser.email };
         users.arePending(pendingFriends)
         .then(friend => {
           res.locals.pending = true;
@@ -36,10 +36,10 @@ module.exports = {
 
     addFriend(req, res, next) {
       if (!req.session.alreadyFriends) {
-        const updateFriendRequest = { 'user_id': req.session.user.username, 'friend_id': req.params.id, 'status': 3 };
+        const updateFriendRequest = { 'user_id': req.session.user.email, 'friend_id': req.params.id, 'status': 3 };
         users.addPending(updateFriendRequest)
         .then(friend => {
-          req.session.pending = `Sending friend request to ${req.session.user.username}`;
+          req.session.pending = `Sending friend request to ${req.session.user.email}`;
           res.locals.pending = true;
           res.locals.friends = false;
           next();
@@ -56,7 +56,7 @@ module.exports = {
     },
 
     confirmFriend(req, res, next) {
-      const confirmFriend = { 'user_id': req.params.id, 'friend_id': req.session.user.username, 'status': 1 };
+      const confirmFriend = { 'user_id': req.params.id, 'friend_id': req.session.user.email, 'status': 1 };
       users.addFriend(confirmFriend)
       .then(friend => {
         req.session.success = `Friend added!`;
@@ -73,7 +73,7 @@ module.exports = {
     },
 
     getPendingFriends(req, res, next) {
-      users.getPendingFriends(req.session.user.username)
+      users.getPendingFriends(req.session.user.email)
       .then(friends => {
         req.session.pendingFriends = friends;
         next();
@@ -84,7 +84,7 @@ module.exports = {
     },
 
     findPending(req, res, next) {
-      users.findPending(req.session.user.username)
+      users.findPending(req.session.user.email)
       .then(friends => {
         req.session.findPending = true;
         req.session.findPendingFriends = friends;
@@ -113,7 +113,7 @@ module.exports = {
 
 //Check to see if you and the user of the page you are visiting are already friends
     inFriends(req, res, next) {
-      const confirmFriend = { 'user_id': req.session.user.username, 'friend_id': req.params.id };
+      const confirmFriend = { 'user_id': req.session.user.email, 'friend_id': req.params.id };
       users.inFriendDatabase(confirmFriend)
       .then(friends => {
         req.session.alreadyFriends = true;

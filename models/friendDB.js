@@ -41,8 +41,8 @@ module.exports = {
   },
 
   create(user) {
-    return friendDB.one(`INSERT INTO users (username, password)
-                                        VALUES ($[username], $[password]) RETURNING *`, user);
+    return friendDB.one(`INSERT INTO users (email, password)
+                                        VALUES ($[email], $[password]) RETURNING *`, user);
   },
 
   findPending(user) {
@@ -77,7 +77,7 @@ module.exports = {
   getNonFriends(user) {
     return friendDB.any(`SELECT friend_id
                                         FROM friends
-                                        WHERE user_id = $[username]
+                                        WHERE user_id = $[email]
                                         AND status = 4`, user);
   },
 };

@@ -1,26 +1,24 @@
 const express = require('express');
 const authRouter = express.Router();
-const viewsController = require('../controllers/viewsController');
-const authController = require('../controllers/authController');
-const profileController = require('../controllers/profileController');
-const friendController = require('../controllers/friendController');
-const postController = require('../controllers/postController');
-const likeController = require('../controllers/likeController');
-const locController = require('../controllers/locationController');
+import User from '../models/profileDB';
+import jwt from 'jsonwebtoken';
 
-authRouter.route('/register')
-  .get(viewsController.showRegister)
-  .post(authController.checkNewUser, locController.getLoc, profileController.save,
-            profileController.getAllUsers, friendController.getNonFriends,
-              viewsController.showNewUser);
+authRouter.post('/', (req, res) => {
+  const { credentials } = req.body;
+  User.findUser({ email: credentials.email }).then(user => {
+    if (user && user.isValidPassword(user, credentials.password)) {
+      const token = generateJWT(user);
+      res.json({ user: { email: user.email, token: token } });
+    } else {
+      res.status(400).json({ errors: { global: 'Invalide credentials' } });
+    }
+  });
+});
 
-authRouter.route('/login')
-  .post(authController.authenticate, locController.getLoc, profileController.getAllUsers,
-            friendController.getNonFriends, friendController.getPendingFriends,
-              friendController.findPending, postController.getYourPosts, likeController.getLikes,
-                    viewsController.showUser);
-
-authRouter.post('/loc', authController.updateLoc);
-authRouter.get('/logout', authController.logout);
+function generateJWT(user) {
+  return jwt.sign({
+    email: user.email,
+  }, process.env.SECRET);
+}
 
 module.exports = authRouter;

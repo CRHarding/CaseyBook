@@ -2,7 +2,7 @@ const users = require('../models/profileDB');
 
 module.exports = {
   landingPage(req, res, next) {
-    users.find(req.params.username)
+    users.find(req.params.email)
     .then(result => {
       res.locals.user = user;
       req.session.user = user;
@@ -38,7 +38,7 @@ module.exports = {
   },
 
   delete(req, res, next) {
-    users.destroyByUsername(req.body)
+    users.destroyByEmail(req.body)
     .then((user) => {
       req.session.destroy(() => {
         res.redirect('/');
@@ -66,9 +66,9 @@ module.exports = {
     });
   },
 
-  findFriendByUsername(req, res, next) {
-    username = req.params.id;
-    users.findFriendByUsername(username)
+  findFriendByEmail(req, res, next) {
+    email = req.params.id;
+    users.findFriendByEmail(email)
     .then(foundFriend => {
       res.locals.friendUser = foundFriend;
       next();

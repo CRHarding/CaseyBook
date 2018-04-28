@@ -7,10 +7,10 @@ module.exports = {
     }
 
     if (!req.params.id) {
-      req.params.id = req.session.user.username;
+      req.params.id = req.session.user.email;
     }
 
-    const postObject = { 'user_id': req.session.user.username, 'friend_id': req.params.id, 'content': req.body.content, 'rest': req.body.rest };
+    const postObject = { 'user_id': req.session.user.email, 'friend_id': req.params.id, 'content': req.body.content, 'rest': req.body.rest };
     posts.addPost(postObject)
     .then(post => {
       next();
@@ -21,7 +21,7 @@ module.exports = {
   },
 
   getYourPosts(req, res, next) {
-    posts.getYourPosts(req.session.user.username)
+    posts.getYourPosts(req.session.user.email)
     .then(posts => {
       res.locals.posts = posts;
       next();
